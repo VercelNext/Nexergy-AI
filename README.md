@@ -1,6 +1,38 @@
-# Web App Template (tRPC + Manus Auth + Database)
+# NEXERGY OIL - Operational Intelligence Layer
 
-This template gives you a React 19 + Tailwind 4 + Express 4 + tRPC 11 stack with Manus OAuth already wired. Procedures are your contracts, types flow end to end, and authentication "just works".
+NEXERGY OIL es una plataforma avanzada de inteligencia operacional diseñada para la optimización industrial y la ejecución autónoma. Esta implementación incluye un flujo de datos escalable desde la ingesta hasta la configuración de gemelos digitales.
+
+## Ejecución Local (NEXERGY OIL)
+
+Para ejecutar el proyecto en su entorno local y validar las nuevas funcionalidades:
+
+1.  **Instalar Dependencias**:
+    ```bash
+    npm install
+    ```
+
+2.  **Configurar Base de Datos**:
+    Asegúrese de tener una instancia de MySQL/TiDB y configure la URL en su entorno:
+    ```bash
+    export DATABASE_URL="mysql://user:password@host:port/database"
+    ```
+
+3.  **Ejecutar Migraciones**:
+    Cree las tablas necesarias para NEXERGY OIL:
+    ```bash
+    npm run db:push
+    ```
+
+4.  **Iniciar Servidor de Desarrollo**:
+    ```bash
+    npm run dev
+    ```
+
+5.  **Validar Funcionalidades**:
+    - Acceda a `http://localhost:5173`.
+    - Navegue a la sección **Data Ingestion**.
+    - Complete el formulario y verifique el mensaje de feedback: *"Recibido. Activando agentes específicos para completar el flujo de trabajo hacia el diseño del Gemelo Digital."*
+    - Verifique la transición automática a la configuración del **Digital Twin**.
 
 ---
 

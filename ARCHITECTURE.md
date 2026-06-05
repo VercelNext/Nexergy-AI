@@ -186,6 +186,19 @@ npm run dev
 4. **Notificaciones**: Implementar sistema de notificaciones para actualizaciones de estado
 5. **Autenticación**: Integrar con sistema de autenticación existente
 
+## Validación de Arquitectura (Continuidad)
+
+Para asegurar que la arquitectura se mantiene íntegra durante el desarrollo, se ha proporcionado un script de validación en `scripts/validate-architecture.ts`. Este script verifica:
+
+1.  **Esquema de Base de Datos**: Presencia de tablas `data_ingestion` y `digital_twin_goals`.
+2.  **Rutas tRPC**: Disponibilidad de los endpoints de ingesta y digital twin.
+3.  **Branding**: Correcta implementación de los tokens visuales de NEXERGY OIL.
+
+Ejecución del script de validación:
+```bash
+npx tsx scripts/validate-architecture.ts
+```
+
 ## Notas de Mantenibilidad
 
 - **Modularidad**: Cada componente es independiente y reutilizable
