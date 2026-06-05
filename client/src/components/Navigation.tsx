@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { ContactButton } from './ContactButton';
 
 interface NavItem {
   label: string;
@@ -8,15 +9,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Dashboard', id: 'dashboard' },
   { label: 'Orchestrator', id: 'orchestrator' },
-  { label: 'Analytics', id: 'analytics' },
+  { label: 'Data Ingestion', id: 'analytics' },
+  { label: 'Dashboard', id: 'dashboard' },
   { label: 'About', id: 'about' },
-  { label: 'Blog', id: 'blog' },
-  { label: 'Careers', id: 'careers' },
-  { label: 'Docs', id: 'docs' },
-  { label: 'API', id: 'api' },
-  { label: 'Support', id: 'support' },
 ];
 
 export default function Navigation() {
@@ -57,27 +53,32 @@ export default function Navigation() {
         <motion.div
           className="flex items-center gap-2"
           whileHover={{ scale: 1.05 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          style={{ cursor: 'pointer' }}
         >
           <div className="text-2xl font-bold">
             <span className="text-neon-blue">NEXERGY</span>
-            <span className="text-white"> AI</span>
+            <span className="text-white"> OIL</span>
           </div>
         </motion.div>
 
-        <div className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                activeSection === item.id
-                  ? 'text-neon-blue bg-[rgba(0,191,255,0.1)]'
-                  : 'text-gray-400 hover:text-neon-blue'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
+        <div className="hidden md:flex items-center gap-6">
+          <div className="flex items-center gap-1">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  activeSection === item.id
+                    ? 'text-neon-blue bg-[rgba(0,191,255,0.1)]'
+                    : 'text-gray-400 hover:text-neon-blue'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+          <ContactButton className="ml-4" />
         </div>
 
         <button
@@ -96,20 +97,25 @@ export default function Navigation() {
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="px-4 py-4 space-y-2">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  activeSection === item.id
-                    ? 'text-neon-blue bg-[rgba(0,191,255,0.1)]'
-                    : 'text-gray-400 hover:text-neon-blue'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+          <div className="px-4 py-4 space-y-4">
+            <div className="space-y-2">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    activeSection === item.id
+                      ? 'text-neon-blue bg-[rgba(0,191,255,0.1)]'
+                      : 'text-gray-400 hover:text-neon-blue'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            <div className="px-4 pb-2">
+              <ContactButton className="w-full text-center block" />
+            </div>
           </div>
         </motion.div>
       )}

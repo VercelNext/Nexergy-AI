@@ -12,7 +12,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from 'recharts';
 import { TrendingUp, AlertCircle, Zap, Brain } from 'lucide-react';
@@ -129,7 +128,7 @@ export default function OperationalDashboard() {
   };
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden">
+    <section className="py-20 px-4 relative overflow-hidden bg-[#0a0e27]" id="dashboard">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -142,7 +141,7 @@ export default function OperationalDashboard() {
             <span className="text-white">Operational</span>
             <span className="text-neon-blue"> Dashboard</span>
           </h2>
-          <p className="text-gray-400 text-lg">Mock but realistic. Real-time metrics, anomalies, and AI recommendations</p>
+          <p className="text-gray-400 text-lg">Real-time metrics, anomalies, and AI recommendations for NEXERGY OIL</p>
         </motion.div>
 
         <motion.div
@@ -188,7 +187,7 @@ export default function OperationalDashboard() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 p-6 rounded-lg border border-[#00BFFF] bg-[rgba(20,30,60,0.5)] backdrop-blur-sm"
+            className="lg:col-span-2 p-6 rounded-lg border border-[#00BFFF]/30 bg-[rgba(20,30,60,0.5)] backdrop-blur-sm"
           >
             <h3 className="text-lg font-bold text-neon-blue mb-4">24h Activity</h3>
             <ResponsiveContainer width="100%" height={300}>
@@ -221,9 +220,9 @@ export default function OperationalDashboard() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="p-6 rounded-lg border border-neon-green bg-[rgba(20,30,60,0.5)] backdrop-blur-sm"
+            className="p-6 rounded-lg border border-[#00FF7F]/30 bg-[rgba(20,30,60,0.5)] backdrop-blur-sm"
           >
-            <h3 className="text-lg font-bold text-neon-green mb-4">Active Agents Status</h3>
+            <h3 className="text-lg font-bold text-[#00FF7F] mb-4">Active Agents Status</h3>
             <ResponsiveContainer width="100%" height={250}>
               <PieChart>
                 <Pie
@@ -265,9 +264,9 @@ export default function OperationalDashboard() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="p-6 rounded-lg border border-neon-purple bg-[rgba(20,30,60,0.5)] backdrop-blur-sm"
+          className="p-6 rounded-lg border border-[#C800FF]/30 bg-[rgba(20,30,60,0.5)] backdrop-blur-sm"
         >
-          <h3 className="text-lg font-bold text-neon-purple mb-4">Business Unit Performance</h3>
+          <h3 className="text-lg font-bold text-[#C800FF] mb-4">Business Unit Performance</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={businessUnitData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(200,0,255,0.2)" />
@@ -284,9 +283,6 @@ export default function OperationalDashboard() {
           </ResponsiveContainer>
         </motion.div>
       </div>
-
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-[#00BFFF] rounded-full mix-blend-screen filter blur-3xl opacity-10" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#C800FF] rounded-full mix-blend-screen filter blur-3xl opacity-10" />
     </section>
   );
 }

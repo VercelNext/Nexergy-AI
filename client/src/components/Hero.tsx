@@ -1,15 +1,7 @@
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import ParticleBackground from './ParticleBackground';
-import { ContactButton } from '@/components/ContactButton'; // Asegúrate de esta ruta
 
-interface HeroProps {
-  onExperienceOrchestrator?: () => void;
-  onViewDashboard?: () => void;
-}
-
-export default function Hero({ onExperienceOrchestrator, onViewDashboard }: HeroProps) {
+export default function Hero() {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,34 +29,14 @@ export default function Hero({ onExperienceOrchestrator, onViewDashboard }: Hero
         <motion.div variants={itemVariants} className="mb-6">
           <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
             <span className="text-neon-blue">NEXERGY</span>
-            <span className="text-white"> AI</span>
+            <span className="text-white"> OIL</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 font-light">Operational Intelligence</p>
+          <p className="text-xl md:text-2xl text-gray-300 font-light tracking-wider">
+            Operational Intelligence Layer
+          </p>
         </motion.div>
 
-        {/* CTA Buttons */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
-        >
-          <Button
-            onClick={onExperienceOrchestrator}
-            className="px-8 py-6 text-lg font-semibold bg-[#00BFFF] text-[#0a0e27] hover:bg-[#00BFFF] hover:shadow-[0_0_30px_rgba(0,191,255,0.6)] transition-all duration-300 rounded-lg"
-          >
-            Experience Orchestrator
-          </Button>
-          <Button
-            onClick={onViewDashboard}
-            variant="outline"
-            className="px-8 py-6 text-lg font-semibold border-[#00BFFF] text-[#00BFFF] hover:bg-[rgba(0,191,255,0.1)] transition-all duration-300 rounded-lg"
-          >
-            View Dashboard
-          </Button>
-          {/* NUEVO BOTÓN INTEGRADO */}
-          <ContactButton />
-        </motion.div>
-
-        {/* Scroll indicator... */}
+        {/* Removed CTA Buttons as per instructions to centralize contact button in header */}
       </motion.div>
     </section>
   );

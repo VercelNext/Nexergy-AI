@@ -25,4 +25,26 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+export const dataIngestion = mysqlTable('data_ingestion', {
+  id: int('id').autoincrement().primaryKey(),
+  sourceName: text('sourceName').notNull(),
+  sourceType: text('sourceType').notNull(),
+  status: text('status').notNull().default('pending'),
+  metadata: text('metadata'),
+  storageKey: text('storageKey'), // Preparado para R2
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
+});
+
+export const digitalTwinGoals = mysqlTable('digital_twin_goals', {
+  id: int('id').autoincrement().primaryKey(),
+  ingestionId: int('ingestionId').references(() => dataIngestion.id),
+  goalType: text('goalType').notNull(),
+  description: text('description').notNull(),
+  optimizationTarget: text('optimizationTarget'),
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
+});
+
+export type DataIngestion = typeof dataIngestion.$inferSelect;
+export type InsertDataIngestion = typeof dataIngestion.$inferInsert;
+export type DigitalTwinGoal = typeof digitalTwinGoals.$inferSelect;
+export type InsertDigitalTwinGoal = typeof digitalTwinGoals.$inferInsert;

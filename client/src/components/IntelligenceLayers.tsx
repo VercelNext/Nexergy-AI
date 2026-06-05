@@ -9,7 +9,7 @@ interface IntelligenceLayer {
   color: string;
   glowColor: string;
   description: string;
-  href?: string; // ← Agregado como opcional para que TypeScript no tire error
+  href?: string;
 }
 
 const layers: IntelligenceLayer[] = [
@@ -25,17 +25,16 @@ const layers: IntelligenceLayer[] = [
   {
     id: 'energy',
     name: 'NEXERGY ENERGY',
-    metrics: ['Efficiency', 'Consumption', 'Optimization', 'Sustainability'],
+    metrics: ['Efficiency', 'Consumption', 'Sustainability'],
     icon: <Zap className="w-8 h-8" />,
     color: '#00FF7F',
     glowColor: 'rgba(0, 255, 127, 0.5)',
     description: 'Energy efficiency and operational energy intelligence',
-    href: 'https://optinexai.vercel.app', // ← Tu enlace real de Vercel integrado
   },
   {
     id: 'agents',
     name: 'NEXERGY AGENTS',
-    metrics: ['Autonomy', 'Actions', 'Decisions', 'Execution'],
+    metrics: ['Autonomy', 'Actions', 'Decisions'],
     icon: <Brain className="w-8 h-8" />,
     color: '#C800FF',
     glowColor: 'rgba(200, 0, 255, 0.5)',
@@ -44,7 +43,7 @@ const layers: IntelligenceLayer[] = [
   {
     id: 'digital-twin',
     name: 'NEXERGY DIGITAL TWIN',
-    metrics: ['Prediction', 'Scenarios', 'Simulation', 'Outcomes'],
+    metrics: ['Prediction', 'Scenarios', 'Simulation'],
     icon: <Microscope className="w-8 h-8" />,
     color: '#00FFFF',
     glowColor: 'rgba(0, 255, 255, 0.5)',
@@ -53,7 +52,7 @@ const layers: IntelligenceLayer[] = [
   {
     id: 'labs',
     name: 'NEXERGY LABS',
-    metrics: ['Innovation', 'Research', 'Development', 'Emerging'],
+    metrics: ['Innovation', 'Research', 'Emerging'],
     icon: <Shield className="w-8 h-8" />,
     color: '#FF00FF',
     glowColor: 'rgba(255, 0, 255, 0.5)',
@@ -83,7 +82,7 @@ export default function IntelligenceLayers() {
   };
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden">
+    <section className="py-20 px-4 relative overflow-hidden bg-[#0a0e27]" id="about">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -96,7 +95,7 @@ export default function IntelligenceLayers() {
             <span className="text-white">Intelligence</span>
             <span className="text-neon-blue"> Layers</span>
           </h2>
-          <p className="text-gray-400 text-lg">Modular AI capabilities designed for enterprise operational intelligence</p>
+          <p className="text-gray-400 text-lg">Modular AI capabilities designed for NEXERGY OIL operational intelligence</p>
         </motion.div>
 
         <motion.div
@@ -107,10 +106,9 @@ export default function IntelligenceLayers() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4"
         >
           {layers.map((layer) => {
-            // Estructura interna de la tarjeta para no duplicar código
             const CardContent = (
               <div
-                className="h-full p-6 rounded-lg border-2 bg-[rgba(20,30,60,0.5)] backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer group"
+                className="h-full p-6 rounded-lg border-2 bg-[rgba(20,30,60,0.5)] backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:scale-105 group"
                 style={{
                   borderColor: layer.color,
                   boxShadow: `0 0 20px ${layer.glowColor}`,
@@ -148,7 +146,6 @@ export default function IntelligenceLayers() {
               </div>
             );
 
-            // Si la capa tiene href, envolvemos la animación con un enlace externo semántico
             return (
               <motion.div key={layer.id} variants={itemVariants} className="h-full">
                 {layer.href ? (
@@ -168,9 +165,6 @@ export default function IntelligenceLayers() {
           })}
         </motion.div>
       </div>
-
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#00BFFF] rounded-full mix-blend-screen filter blur-3xl opacity-10 -translate-y-1/2" />
-      <div className="absolute top-1/2 right-0 w-96 h-96 bg-[#C800FF] rounded-full mix-blend-screen filter blur-3xl opacity-10 translate-y-1/2" />
     </section>
   );
 }

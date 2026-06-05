@@ -3,19 +3,12 @@ import { Activity, Shield, Zap } from 'lucide-react';
 
 const footerLinks = {
   platform: [
-    { label: 'Dashboard', href: '#dashboard' },
     { label: 'Orchestrator', href: '#orchestrator' },
-    { label: 'Analytics', href: '#analytics' },
+    { label: 'Data Ingestion', href: '#analytics' },
+    { label: 'Dashboard', href: '#dashboard' },
   ],
   company: [
     { label: 'About', href: '#about' },
-    { label: 'Blog', href: '#blog' },
-    { label: 'Careers', href: '#careers' },
-  ],
-  resources: [
-    { label: 'Docs', href: '#docs' },
-    { label: 'API', href: '#api' },
-    { label: 'Support', href: '#support' },
   ],
 };
 
@@ -54,22 +47,21 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
         >
           <motion.div variants={itemVariants}>
             <div className="mb-4">
               <span className="text-2xl font-bold">
                 <span className="text-neon-blue">NEXERGY</span>
-                <span className="text-white"> AI</span>
+                <span className="text-white"> OIL</span>
               </span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
-              AI-Native Operational Infrastructure for enterprise intelligence and autonomous execution.
+              Operational Intelligence Layer for industrial optimization and autonomous execution.
             </p>
-            {/* Correo de contacto destacado */}
             <a 
               href="mailto:contacto@nexergy.ar" 
-              className="text-sm text-neon-cyan hover:text-white transition-colors flex items-center gap-2"
+              className="text-sm text-neon-blue hover:text-white transition-colors flex items-center gap-2"
             >
               ✉️ contacto@nexergy.ar
             </a>
@@ -96,17 +88,6 @@ export default function Footer() {
               ))}
             </ul>
           </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <h4 className="text-white font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2">
-              {footerLinks.resources.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-gray-400 hover:text-neon-blue transition-colors text-sm">{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
         </motion.div>
 
         <motion.div
@@ -114,16 +95,16 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mb-8 p-4 rounded-lg border border-neon-cyan bg-[rgba(0,255,255,0.05)]"
+          className="mb-8 p-4 rounded-lg border border-[#00BFFF]/30 bg-[rgba(0,191,255,0.05)]"
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {statusIndicators.map((indicator, idx) => (
               <div key={idx} className="flex items-center gap-3">
-                <div className="text-neon-cyan">{indicator.icon}</div>
+                <div className="text-[#00BFFF]">{indicator.icon}</div>
                 <div>
                   <p className="text-xs text-gray-400">{indicator.label}</p>
-                  <p className="text-sm font-semibold text-neon-cyan flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-neon-cyan animate-pulse" />
+                  <p className="text-sm font-semibold text-[#00BFFF] flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#00BFFF] animate-pulse" />
                     {indicator.status}
                   </p>
                 </div>
@@ -139,7 +120,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="border-t border-[#00BFFF]/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
         >
-          <p className="text-gray-400 text-sm">© 2026 NEXERGY AI. All rights reserved.</p>
+          <p className="text-gray-400 text-sm">© 2026 NEXERGY OIL. All rights reserved.</p>
           <div className="flex gap-6 text-sm">
             <a href="mailto:contacto@nexergy.ar" className="text-neon-blue hover:text-white transition-colors">Contact</a>
             <a href="#privacy" className="text-gray-400 hover:text-neon-blue transition-colors">Privacy</a>

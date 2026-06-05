@@ -4,7 +4,7 @@ export function ContactButton({ className = "" }: { className?: string }) {
   return (
     <a 
       href="mailto:contacto@nexergy.ar" 
-      className={`bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors ${className}`}
+      className={`bg-[#00BFFF] hover:bg-[#00BFFF]/90 text-[#0a0e27] font-bold py-2.5 px-6 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,191,255,0.4)] text-sm ${className}`}
     >
       Enviar consulta
     </a>

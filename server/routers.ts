@@ -4,6 +4,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { invokeLLM } from "./_core/llm";
+import { createDataIngestion, createDigitalTwinGoal } from "./db";
 
 export const appRouter = router({
   system: systemRouter,
@@ -45,6 +46,42 @@ export const appRouter = router({
           console.error("LLM Error:", error);
           throw new Error("Failed to generate intelligence analysis");
         }
+      }),
+  }),
+
+  ingestion: router({
+    submit: publicProcedure
+      .input(z.object({
+        sourceName: z.string(),
+        sourceType: z.string(),
+        metadata: z.string().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const result = await createDataIngestion({
+          sourceName: input.sourceName,
+          sourceType: input.sourceType,
+          metadata: input.metadata,
+          status: 'pending',
+        });
+        return { 
+          success: true, 
+          id: result.id,
+          message: "Recibido. Activando agentes específicos para completar el flujo de trabajo hacia el diseño del Gemelo Digital."
+        };
+      }),
+  }),
+
+  digitalTwin: router({
+    configureGoal: publicProcedure
+      .input(z.object({
+        ingestionId: z.number(),
+        goalType: z.string(),
+        description: z.string(),
+        optimizationTarget: z.string().optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const result = await createDigitalTwinGoal(input);
+        return { success: true, id: result.id };
       }),
   }),
 });
