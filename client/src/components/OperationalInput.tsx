@@ -7,8 +7,6 @@ import { trpc } from '@/lib/trpc';
 export default function OperationalInput() {
   const [step, setStep] = useState<'ingestion' | 'twin'>('ingestion');
   const [sourceName, setSourceName] = useState('');
-  const [sourceType, setSourceType] = useState('IoT Sensor Hub');
-  const [metadata, setMetadata] = useState('');
   const [ingestionId, setIngestionId] = useState<number | null>(null);
   const [feedback, setFeedback] = useState('');
 
@@ -19,7 +17,6 @@ export default function OperationalInput() {
     onSuccess: (data) => {
       setIngestionId(data.id);
       setFeedback(data.message);
-      // Wait 3 seconds to show the feedback message before moving to the next step
       setTimeout(() => setStep('twin'), 3000);
     },
   });
@@ -32,7 +29,8 @@ export default function OperationalInput() {
 
   const handleIngestionSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    ingestionMutation.mutate({ sourceName, sourceType, metadata });
+    // Enviamos solo el sourceName ya que eliminamos los otros campos
+    ingestionMutation.mutate({ sourceName, sourceType: 'Manual', metadata: '' });
   };
 
   const handleTwinSubmit = (e: React.FormEvent) => {
@@ -57,9 +55,9 @@ export default function OperationalInput() {
           <h2 className="text-4xl font-bold text-white mb-4">
             {step === 'ingestion' ? 'Data Ingestion' : 'Digital Twin Configuration'}
           </h2>
-          <p className="text-gray-400">
+          <p className="text-gray-400 max-w-2xl mx-auto">
             {step === 'ingestion' 
-              ? 'Connect your operational data sources to the intelligence layer.' 
+              ? 'Load the context data for digital twin modeling, simulate optimization scenarios, and benchmark the results against your industry peers.' 
               : 'Define optimization goals for your industrial digital twin.'}
           </p>
         </motion.div>
@@ -74,40 +72,15 @@ export default function OperationalInput() {
               className="bg-[rgba(255,255,255,0.03)] border border-[#00BFFF]/20 rounded-2xl p-8 backdrop-blur-sm"
             >
               <form onSubmit={handleIngestionSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-300">Source Name</label>
-                    <input
-                      type="text"
-                      value={sourceName}
-                      onChange={(e) => setSourceName(e.target.value)}
-                      placeholder="e.g. Refinery Plant A"
-                      className="w-full bg-[rgba(10,14,39,0.5)] border border-[#00BFFF]/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00BFFF] transition-colors"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-300">Source Type</label>
-                    <select
-                      value={sourceType}
-                      onChange={(e) => setSourceType(e.target.value)}
-                      className="w-full bg-[rgba(10,14,39,0.5)] border border-[#00BFFF]/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00BFFF] transition-colors"
-                    >
-                      <option>IoT Sensor Hub</option>
-                      <option>SCADA System</option>
-                      <option>ERP Integration</option>
-                      <option>Manual CSV Upload</option>
-                    </select>
-                  </div>
-                </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-300">Metadata / Description</label>
-                  <textarea
-                    value={metadata}
-                    onChange={(e) => setMetadata(e.target.value)}
-                    rows={4}
-                    placeholder="Provide context about the data stream..."
-                    className="w-full bg-[rgba(10,14,39,0.5)] border border-[#00BFFF]/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00BFFF] transition-colors resize-none"
+                  <label className="text-sm font-medium text-gray-300">Source Name</label>
+                  <input
+                    type="text"
+                    value={sourceName}
+                    onChange={(e) => setSourceName(e.target.value)}
+                    placeholder="e.g. Refinery Plant A"
+                    className="w-full bg-[rgba(10,14,39,0.5)] border border-[#00BFFF]/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00BFFF] transition-colors"
+                    required
                   />
                 </div>
                 
