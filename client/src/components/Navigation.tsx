@@ -54,9 +54,8 @@ export default function Navigation() {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           style={{ cursor: 'pointer' }}
         >
-          <div className="text-2xl font-bold">
-            <span className="text-neon-blue">NEXERGY</span>
-            <span className="text-white"> OIL</span>
+          <div className="text-2xl font-bold text-white">
+            NEXERGY
           </div>
         </motion.div>
 
@@ -76,7 +75,7 @@ export default function Navigation() {
               </button>
             ))}
           </div>
-          <ContactButton className="ml-4" />
+          <ContactButton className="ml-4">Contact</ContactButton>
         </div>
 
         <button
@@ -112,7 +111,7 @@ export default function Navigation() {
               ))}
             </div>
             <div className="px-4 pb-2">
-              <ContactButton className="w-full text-center block" />
+              <ContactButton className="w-full text-center block">Contact</ContactButton>
             </div>
           </div>
         </motion.div>
