@@ -27,7 +27,7 @@ interface SolutionCard {
 const solutions: SolutionCard[] = [
   {
     id: 1,
-    title: "Operational Maturity Assessment",
+    title: "01. Operational Maturity Assessment",
     description:
       "We evaluate your current operational landscape to identify inefficiencies, gaps, and digital readiness for transformation.",
     icon: TrendingUp,
@@ -36,7 +36,7 @@ const solutions: SolutionCard[] = [
   },
   {
     id: 2,
-    title: "Transformation Strategy Design",
+    title: "02. Transformation Strategy Design",
     description:
       "We define structured roadmaps aligned with business goals, integrating AI, data, and operational intelligence.",
     icon: Lightbulb,
@@ -45,7 +45,7 @@ const solutions: SolutionCard[] = [
   },
   {
     id: 3,
-    title: "Process Optimization",
+    title: "03. Process Optimization",
     description:
       "We redesign workflows to maximize efficiency, reduce friction, and enable scalable operations.",
     icon: Zap,
@@ -54,7 +54,7 @@ const solutions: SolutionCard[] = [
   },
   {
     id: 4,
-    title: "Data-Driven Decision Systems",
+    title: "04. Data-Driven Decision Systems",
     description:
       "We transform operational data into actionable intelligence for real-time decision-making and forecasting.",
     icon: BarChart3,
