@@ -59,7 +59,7 @@ export default function Footer() {
               href="mailto:contacto@nexergy.ar" 
               className="text-sm text-neon-blue hover:text-white transition-colors flex items-center gap-2"
             >
-              ✉️ contacto@nexergy.ar    ventas@nexergy.ar    marketing@nexergy.ar
+              ✉️ contacto@nexergy.ar    ✉️  ventas@nexergy.ar   ✉️  marketing@nexergy.ar
             </a>
           </motion.div>
 
