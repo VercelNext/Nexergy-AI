@@ -9,6 +9,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  { label: 'Enterprise Solutions', id: 'enterprise-solutions' },
   { label: 'Orchestrator', id: 'orchestrator' },
   { label: 'Data Ingestion', id: 'analytics' },
 ];

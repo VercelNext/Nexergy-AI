@@ -4,6 +4,7 @@ import { Activity, Shield, Zap } from 'lucide-react';
 const footerLinks = {
   platform: [
     { label: 'Orchestrator', href: '#orchestrator' },
+    { label: 'Enterprise Solutions', href: '#enterprise-solutions' },
     { label: 'Data Ingestion', href: '#analytics' },
   ],
 };
@@ -53,7 +54,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
-              Operational Intelligence Layer for industrial optimization and autonomous execution.
+              End-to-end industrial optimization. Our experts embed with your teams to transition critical assets from reactive to preventive performance.
             </p>
             <a 
               href="mailto:contacto@nexergy.ar" 
@@ -105,7 +106,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="border-t border-[#00BFFF]/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
         >
-          <p className="text-gray-400 text-sm">© 2026 NEXERGY SAS. All rights reserved.</p>
+          <p className="text-gray-400 text-sm">© 2026 NEXERGY LABS. All rights reserved.</p>
           <div className="flex gap-6 text-sm">
             <a href="mailto:contacto@nexergy.ar" className="text-neon-blue hover:text-white transition-colors">Contact</a>
             <a href="#privacy" className="text-gray-400 hover:text-neon-blue transition-colors">Privacy</a>
