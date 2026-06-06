@@ -86,8 +86,7 @@ export default function OperationalOrchestrator() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-neon-blue">Operational</span>
-            <span className="text-white"> Orchestrator</span>
+            <span className="text-white"> Orchestrator & Skills Agents </span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             NEXERGY The operational layer activates the necessary assistance agents for your digital twin modeling.
