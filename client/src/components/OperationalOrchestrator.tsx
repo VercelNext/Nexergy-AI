@@ -90,7 +90,7 @@ export default function OperationalOrchestrator() {
             <span className="text-white"> Orchestrator</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            NEXERGY OIL activates specific agents to transform raw data into industrial optimization.
+            NEXERGY The operational layer activates the necessary assistance agents for your digital twin modeling.
           </p>
         </motion.div>
 
@@ -100,7 +100,7 @@ export default function OperationalOrchestrator() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-16"
+          className="grid grid-cols-1 md:grid-cols-5 gap-4"
         >
           {steps.map((step, index) => (
             <motion.div key={step.id} variants={stepVariants} className="relative">
@@ -152,23 +152,6 @@ export default function OperationalOrchestrator() {
               )}
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Orchestration flow description */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="bg-[rgba(20,30,60,0.3)] border border-[#00BFFF]/30 rounded-lg p-8 backdrop-blur-sm"
-        >
-          <h3 className="text-2xl font-bold text-neon-blue mb-4">Ingestion to Twin Flow</h3>
-          <p className="text-gray-300 leading-relaxed mb-4">
-            Our architecture is designed for scale, leveraging Cloudflare D1 for metadata persistence and prepared for R2 file storage. Each ingestion triggers a specialized workflow toward the Digital Twin layer.
-          </p>
-          <p className="text-gray-300 leading-relaxed">
-            NEXERGY OIL ensures continuous data flow, providing the necessary intelligence for high-stakes industrial decision making and predictive optimization.
-          </p>
         </motion.div>
       </div>
     </section>
