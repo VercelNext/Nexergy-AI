@@ -41,7 +41,7 @@ export default function Orchestrator() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Orchestrator & Skills Agents
+            Agent Orchestration & Skill Layer
           </h2>
           <div className="w-24 h-1 bg-[#00BFFF] mx-auto rounded-full" />
         </motion.div>
