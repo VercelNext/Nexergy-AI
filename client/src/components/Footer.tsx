@@ -5,10 +5,6 @@ const footerLinks = {
   platform: [
     { label: 'Orchestrator', href: '#orchestrator' },
     { label: 'Data Ingestion', href: '#analytics' },
-    { label: 'Dashboard', href: '#dashboard' },
-  ],
-  company: [
-    { label: 'About', href: '#about' },
   ],
 };
 
@@ -47,7 +43,7 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
         >
           <motion.div variants={itemVariants}>
             <div className="mb-4">
@@ -71,17 +67,6 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Platform</h4>
             <ul className="space-y-2">
               {footerLinks.platform.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-gray-400 hover:text-neon-blue transition-colors text-sm">{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
-            <ul className="space-y-2">
-              {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <a href={link.href} className="text-gray-400 hover:text-neon-blue transition-colors text-sm">{link.label}</a>
                 </li>
