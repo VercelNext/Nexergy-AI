@@ -1,11 +1,21 @@
-import { motion } from 'framer-motion';
-import { TrendingUp, Lightbulb, Zap, BarChart3, Search, Code, Rocket, GraduationCap } from 'lucide-react';
+import { motion } from "framer-motion";
+import {
+  TrendingUp,
+  Lightbulb,
+  Zap,
+  BarChart3,
+  Search,
+  Code,
+  Rocket,
+  GraduationCap,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 interface SolutionCard {
   id: number;
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: LucideIcon;
   color: string;
   glowColor: string;
 }
@@ -13,50 +23,62 @@ interface SolutionCard {
 interface MethodologyStep {
   id: number;
   title: string;
-  icon: React.ReactNode;
+  icon: LucideIcon;
 }
+
+/* -----------------------------
+   DATA
+------------------------------*/
 
 const solutions: SolutionCard[] = [
   {
     id: 1,
-    title: 'Evaluación de la madurez digital',
-    description: 'Diagnóstico preciso del nivel tecnológico y brechas operativas para la Industria 4.0.',
-    icon: <TrendingUp className="w-8 h-8" />,
-    color: '#00BFFF',
-    glowColor: 'rgba(0, 191, 255, 0.5)',
+    title: "Digital Maturity Assessment",
+    description:
+      "Precise diagnostic of technological readiness and operational gaps for Industry 4.0.",
+    icon: TrendingUp,
+    color: "#00BFFF",
+    glowColor: "rgba(0, 191, 255, 0.15)",
   },
   {
     id: 2,
-    title: 'Hojas de ruta estratégicas',
-    description: 'Planes de transformación digital a medida, integrando tecnologías disruptivas.',
-    icon: <Lightbulb className="w-8 h-8" />,
-    color: '#00FF7F',
-    glowColor: 'rgba(0, 255, 127, 0.5)',
+    title: "Strategic Roadmaps",
+    description:
+      "Custom digital transformation plans designed to integrate disruptive technologies.",
+    icon: Lightbulb,
+    color: "#00FF7F",
+    glowColor: "rgba(0, 255, 127, 0.15)",
   },
   {
     id: 3,
-    title: 'Alineación estratégica y mejora de procesos',
-    description: 'Optimización de flujos de trabajo organizativos para máxima eficiencia.',
-    icon: <Zap className="w-8 h-8" />,
-    color: '#C800FF',
-    glowColor: 'rgba(200, 0, 255, 0.5)',
+    title: "Process Alignment & Optimization",
+    description:
+      "Streamlining organizational workflows to achieve maximum operational efficiency.",
+    icon: Zap,
+    color: "#C800FF",
+    glowColor: "rgba(200, 0, 255, 0.15)",
   },
   {
     id: 4,
-    title: 'Procesos basados en datos',
-    description: 'Estructuramos los flujos de datos de su empresa para generar información estratégica que se traduzca en una ventaja competitiva. Mapeamos y optimizamos el conocimiento interno, mejorando la toma de decisiones e impulsando la innovación. Con un enfoque basado en datos y evidencia, ofrecemos soluciones prácticas y personalizadas que facilitan el acceso a información relevante, maximizando los resultados y aportando valor al proceso de toma de decisiones.',
-    icon: <BarChart3 className="w-8 h-8" />,
-    color: '#00FFFF',
-    glowColor: 'rgba(0, 255, 255, 0.5)',
+    title: "Data-Driven Decision Making",
+    description:
+      "We transform internal data into strategic assets for innovation and competitiveness.",
+    icon: BarChart3,
+    color: "#00FFFF",
+    glowColor: "rgba(0, 255, 255, 0.15)",
   },
 ];
 
 const methodologySteps: MethodologyStep[] = [
-  { id: 1, title: 'Inmersión y diagnóstico', icon: <Search className="w-6 h-6" /> },
-  { id: 2, title: 'Desarrollando soluciones innovadoras', icon: <Code className="w-6 h-6" /> },
-  { id: 3, title: 'Prototipado e implementación', icon: <Rocket className="w-6 h-6" /> },
-  { id: 4, title: 'Transferencia de conocimiento y autonomía', icon: <GraduationCap className="w-6 h-6" /> },
+  { id: 1, title: "Discovery & Diagnosis", icon: Search },
+  { id: 2, title: "Solution Design", icon: Code },
+  { id: 3, title: "Implementation", icon: Rocket },
+  { id: 4, title: "Knowledge Transfer", icon: GraduationCap },
 ];
+
+/* -----------------------------
+   COMPONENT
+------------------------------*/
 
 export default function EnterpriseSolutions() {
   const containerVariants = {
@@ -64,116 +86,140 @@ export default function EnterpriseSolutions() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+        staggerChildren: 0.12,
       },
     },
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
+  const itemVariants = {
+    hidden: { opacity: 0, y: 18 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
+  const viewport = { once: true, amount: 0.2 };
+
   return (
-    <section className="py-24 px-4 relative overflow-hidden bg-[#0a0e27]" id="enterprise-solutions">
+    <section
+      id="enterprise-solutions"
+      className="py-24 px-4 bg-[#0a0e27] text-white relative overflow-hidden"
+    >
       <div className="max-w-6xl mx-auto">
-        {/* Section header */}
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-white">Enterprise Solutions</span>
+            Enterprise Solutions
           </h2>
+
           <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-            Soluciones integrales de transformación digital para empresas de nivel empresarial, diseñadas para maximizar eficiencia y competitividad.
+            Comprehensive digital transformation to power enterprise efficiency
+            and competitiveness.
           </p>
         </motion.div>
 
-        {/* Solutions grid */}
+        {/* SOLUTIONS GRID */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={viewport}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24"
         >
-          {solutions.map((solution) => (
-            <motion.div key={solution.id} variants={cardVariants} className="relative group">
-              {/* Solution card */}
-              <div
-                className="p-8 rounded-2xl border border-[#00BFFF]/20 bg-[rgba(255,255,255,0.02)] backdrop-blur-sm transition-all duration-300 hover:border-[#00BFFF]/50 hover:bg-[rgba(255,255,255,0.05)] h-full flex flex-col"
+          {solutions.map((solution) => {
+            const Icon = solution.icon;
+
+            return (
+              <motion.article
+                key={solution.id}
+                variants={itemVariants}
+                className="group p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col h-full transition-all duration-300 hover:border-white/20 hover:-translate-y-1"
                 style={{
-                  boxShadow: `0 0 30px rgba(0, 191, 255, 0.05)`,
+                  boxShadow: `0 0 30px ${solution.glowColor}`,
                 }}
+                aria-label={solution.title}
               >
-                {/* Icon */}
+                {/* ICON */}
                 <div
-                  className="mb-6 p-4 rounded-xl inline-block w-fit"
+                  className="mb-6 p-4 rounded-xl w-fit"
                   style={{ backgroundColor: solution.glowColor }}
                 >
-                  <div style={{ color: solution.color }}>{solution.icon}</div>
+                  <Icon
+                    className="w-8 h-8"
+                    style={{ color: solution.color }}
+                  />
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-bold mb-4 text-white group-hover:text-[#00BFFF] transition-colors">
+                {/* TITLE */}
+                <h3 className="text-xl font-bold mb-4 text-white group-hover:text-cyan-300 transition-colors">
                   {solution.title}
                 </h3>
 
-                {/* Description */}
-                <p className="text-gray-400 leading-relaxed flex-grow text-sm md:text-base">
+                {/* DESCRIPTION */}
+                <p className="text-gray-400 text-sm md:text-base leading-relaxed flex-grow">
                   {solution.description}
                 </p>
 
-                {/* Hover accent */}
-                <div className="mt-6 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00BFFF]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-            </motion.div>
-          ))}
+                {/* HOVER LINE */}
+                <div className="mt-6 h-[2px] w-full bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </motion.article>
+            );
+          })}
         </motion.div>
 
-        {/* Methodology Section */}
+        {/* METHODOLOGY */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-20 pt-20 border-t border-[#00BFFF]/10"
+          className="border-t border-white/10 pt-20"
         >
           <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">Nuestra metodología</h3>
-            <p className="text-gray-400 max-w-4xl mx-auto leading-relaxed">
-              Nuestras soluciones empresariales se centran en la transformación digital y la innovación, alineadas con las exigencias de la Industria 4.0. Operamos desde el diagnóstico hasta la implementación de soluciones personalizadas, empoderando a los equipos y garantizando la autonomía para la mejora continua, siempre basándonos en la evidencia y las prácticas innovadoras.
+            <h3 className="text-3xl md:text-4xl font-bold mb-6">
+              Execution Roadmap
+            </h3>
+
+            <p className="text-gray-400 max-w-3xl mx-auto">
+              Bridging strategy and execution through structured digital transformation.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {methodologySteps.map((step, index) => (
-              <div key={step.id} className="relative">
-                <div className="p-6 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[#00BFFF]/10 hover:border-[#00BFFF]/30 transition-all duration-300 text-center h-full flex flex-col items-center">
-                  <div className="mb-4 text-[#00BFFF]">
-                    {step.icon}
+            {methodologySteps.map((step, index) => {
+              const Icon = step.icon;
+              const isLast = index === methodologySteps.length - 1;
+
+              return (
+                <div key={step.id} className="relative text-center">
+                  <div className="p-6 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-all h-full flex flex-col items-center">
+                    <Icon className="w-6 h-6 text-cyan-400 mb-4" />
+
+                    <div className="text-xs font-bold text-cyan-400/60 mb-2 uppercase tracking-widest">
+                      Step {String(step.id).padStart(2, "0")}
+                    </div>
+
+                    <h4 className="text-white font-semibold text-sm md:text-base">
+                      {step.title}
+                    </h4>
                   </div>
-                  <div className="text-xs font-bold text-[#00BFFF]/60 mb-2 uppercase tracking-widest">Paso 0{step.id}</div>
-                  <h4 className="text-white font-semibold text-sm md:text-base leading-tight">
-                    {step.title}
-                  </h4>
+
+                  {!isLast && (
+                    <div className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 text-cyan-400/20">
+                      <Zap className="w-6 h-6" />
+                    </div>
+                  )}
                 </div>
-                {index < methodologySteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10 text-[#00BFFF]/20">
-                    <Zap className="w-6 h-6" />
-                  </div>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
       </div>
