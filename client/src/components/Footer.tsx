@@ -59,7 +59,7 @@ export default function Footer() {
               href="mailto:contacto@nexergy.ar" 
               className="text-sm text-neon-blue hover:text-white transition-colors flex items-center gap-2"
             >
-              ✉️ contacto@nexergy.ar
+              ✉️ contacto@nexergy.ar    ventas@nexergy.ar    marketing@nexergy.ar
             </a>
           </motion.div>
 
@@ -105,7 +105,7 @@ export default function Footer() {
           viewport={{ once: true }}
           className="border-t border-[#00BFFF]/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
         >
-          <p className="text-gray-400 text-sm">© 2026 NEXERGY OIL. All rights reserved.</p>
+          <p className="text-gray-400 text-sm">© 2026 NEXERGY SAS. All rights reserved.</p>
           <div className="flex gap-6 text-sm">
             <a href="mailto:contacto@nexergy.ar" className="text-neon-blue hover:text-white transition-colors">Contact</a>
             <a href="#privacy" className="text-gray-400 hover:text-neon-blue transition-colors">Privacy</a>
