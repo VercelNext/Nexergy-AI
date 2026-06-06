@@ -1,6 +1,7 @@
 import Hero from '@/components/Hero';
 import Navigation from '@/components/Navigation';
 import OperationalOrchestrator from '@/components/OperationalOrchestrator';
+import EnterpriseSolutions from '@/components/EnterpriseSolutions';
 import OperationalInput from '@/components/OperationalInput';
 import TrustGovernance from '@/components/TrustGovernance';
 import PlatformArchitecture from '@/components/PlatformArchitecture';
@@ -15,6 +16,10 @@ export default function Home() {
 
       <div id="orchestrator">
         <OperationalOrchestrator />
+      </div>
+
+      <div id="enterprise-solutions">
+        <EnterpriseSolutions />
       </div>
 
       <div id="analytics">

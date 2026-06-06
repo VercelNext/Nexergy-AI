@@ -4,6 +4,7 @@ import { Activity, Shield, Zap } from 'lucide-react';
 const footerLinks = {
   platform: [
     { label: 'Orchestrator', href: '#orchestrator' },
+    { label: 'Enterprise Solutions', href: '#enterprise-solutions' },
     { label: 'Data Ingestion', href: '#analytics' },
   ],
 };
