@@ -105,7 +105,7 @@ export default function EnterpriseSolutions() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Enterprise Intelligence Layer
+            Strategic Operational Capabilities
           </h2>
 
           <p className="text-gray-400 text-lg max-w-3xl mx-auto">
