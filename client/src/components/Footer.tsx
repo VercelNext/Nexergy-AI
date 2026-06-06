@@ -60,9 +60,7 @@ export default function Footer() {
               className="text-sm text-neon-blue hover:text-white transition-colors flex items-center gap-2"
             >
               ✉️ contacto@nexergy.ar    
-              ✉️ ventas@nexergy.ar   
-              ✉️ marketing@nexergy.ar
-            </a>
+           </a>
           </motion.div>
 
           <motion.div variants={itemVariants}>
