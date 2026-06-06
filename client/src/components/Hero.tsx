@@ -20,7 +20,7 @@ export default function Hero() {
       <ParticleBackground />
 
       <motion.div
-        className="relative z-10 text-center max-w-4xl mx-auto px-4"
+        className="relative z-10 text-center max-w-5xl mx-auto px-4"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
