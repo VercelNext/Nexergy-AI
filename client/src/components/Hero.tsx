@@ -27,11 +27,11 @@ export default function Hero() {
       >
         {/* Main headline */}
         <motion.div variants={itemVariants} className="mb-6">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
+          <h1 className="text-6xl md:text-8xl font-bold mb-4 leading-tight">
             <span className="text-neon-blue">NEXERGY</span>
             <span className="text-white"> OIL</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 font-light tracking-wider">
+          <p className="text-2xl md:text-3xl text-gray-300 font-bold tracking-wider">
             Operational Intelligence Layer
           </p>
         </motion.div>
