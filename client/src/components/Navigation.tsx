@@ -11,8 +11,6 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Orchestrator', id: 'orchestrator' },
   { label: 'Data Ingestion', id: 'analytics' },
-  { label: 'Dashboard', id: 'dashboard' },
-  { label: 'About', id: 'about' },
 ];
 
 export default function Navigation() {

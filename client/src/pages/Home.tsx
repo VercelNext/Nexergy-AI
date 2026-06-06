@@ -2,8 +2,6 @@ import Hero from '@/components/Hero';
 import Navigation from '@/components/Navigation';
 import OperationalOrchestrator from '@/components/OperationalOrchestrator';
 import OperationalInput from '@/components/OperationalInput';
-import OperationalDashboard from '@/components/OperationalDashboard';
-import IntelligenceLayers from '@/components/IntelligenceLayers';
 import TrustGovernance from '@/components/TrustGovernance';
 import PlatformArchitecture from '@/components/PlatformArchitecture';
 import Footer from '@/components/Footer';
@@ -21,14 +19,6 @@ export default function Home() {
 
       <div id="analytics">
         <OperationalInput />
-      </div>
-
-      <div id="dashboard">
-        <OperationalDashboard />
-      </div>
-
-      <div id="about">
-        <IntelligenceLayers />
       </div>
 
       <TrustGovernance />

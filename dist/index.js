@@ -34,6 +34,24 @@ var users = mysqlTable("users", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull()
 });
+var dataIngestion = mysqlTable("data_ingestion", {
+  id: int("id").autoincrement().primaryKey(),
+  sourceName: text("sourceName").notNull(),
+  sourceType: text("sourceType").notNull(),
+  status: text("status").notNull().default("pending"),
+  metadata: text("metadata"),
+  storageKey: text("storageKey"),
+  // Preparado para R2
+  createdAt: timestamp("createdAt").defaultNow().notNull()
+});
+var digitalTwinGoals = mysqlTable("digital_twin_goals", {
+  id: int("id").autoincrement().primaryKey(),
+  ingestionId: int("ingestionId").references(() => dataIngestion.id),
+  goalType: text("goalType").notNull(),
+  description: text("description").notNull(),
+  optimizationTarget: text("optimizationTarget"),
+  createdAt: timestamp("createdAt").defaultNow().notNull()
+});
 
 // server/_core/env.ts
 var ENV = {
@@ -116,6 +134,18 @@ async function getUserByOpenId(openId) {
   }
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
   return result.length > 0 ? result[0] : void 0;
+}
+async function createDataIngestion(data) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const [result] = await db.insert(dataIngestion).values(data);
+  return { id: result.insertId };
+}
+async function createDigitalTwinGoal(data) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const [result] = await db.insert(digitalTwinGoals).values(data);
+  return { id: result.insertId };
 }
 
 // server/_core/cookies.ts
@@ -813,6 +843,36 @@ var appRouter = router({
         console.error("LLM Error:", error);
         throw new Error("Failed to generate intelligence analysis");
       }
+    })
+  }),
+  ingestion: router({
+    submit: publicProcedure.input(z2.object({
+      sourceName: z2.string(),
+      sourceType: z2.string(),
+      metadata: z2.string().optional()
+    })).mutation(async ({ input }) => {
+      const result = await createDataIngestion({
+        sourceName: input.sourceName,
+        sourceType: input.sourceType,
+        metadata: input.metadata,
+        status: "pending"
+      });
+      return {
+        success: true,
+        id: result.id,
+        message: "Recibido. Activando agentes espec\xEDficos para completar el flujo de trabajo hacia el dise\xF1o del Gemelo Digital."
+      };
+    })
+  }),
+  digitalTwin: router({
+    configureGoal: publicProcedure.input(z2.object({
+      ingestionId: z2.number(),
+      goalType: z2.string(),
+      description: z2.string(),
+      optimizationTarget: z2.string().optional()
+    })).mutation(async ({ input }) => {
+      const result = await createDigitalTwinGoal(input);
+      return { success: true, id: result.id };
     })
   })
 });
