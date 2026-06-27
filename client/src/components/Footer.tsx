@@ -32,8 +32,21 @@ export default function Footer() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
+      transition: { duration: 0.6, ease: 'easeOut' as any },
     },
+  };
+
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    // Como el modal está en Navigation, podemos disparar un scroll al top o usar un evento personalizado
+    // Pero la instrucción pide evitar archivos nuevos. Usaré un scroll al top y abrir el modal si es posible,
+    // o simplemente disparar un evento que Navigation escuche.
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Pequeño hack para abrir el modal en Navigation sin Redux/Context complejo:
+    setTimeout(() => {
+      const contactBtn = document.querySelector('nav button.ml-4') as HTMLButtonElement;
+      if (contactBtn) contactBtn.click();
+    }, 500);
   };
 
   return (
@@ -56,12 +69,12 @@ export default function Footer() {
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
               End-to-end industrial optimization. Our experts embed with your teams to transition critical assets from reactive to preventive performance.
             </p>
-            <a 
-              href="mailto:contacto@nexergy.ar" 
+            <button 
+              onClick={handleContactClick}
               className="text-sm text-neon-blue hover:text-white transition-colors flex items-center gap-2"
             >
               ✉️ contacto@nexergy.ar    
-           </a>
+           </button>
           </motion.div>
 
           <motion.div variants={itemVariants}>
@@ -108,7 +121,7 @@ export default function Footer() {
         >
           <p className="text-gray-400 text-sm">© 2026 NEXERGY LABS. All rights reserved.</p>
           <div className="flex gap-6 text-sm">
-            <a href="mailto:contacto@nexergy.ar" className="text-neon-blue hover:text-white transition-colors">Contact</a>
+            <button onClick={handleContactClick} className="text-neon-blue hover:text-white transition-colors">Contact</button>
             <a href="#privacy" className="text-gray-400 hover:text-neon-blue transition-colors">Privacy</a>
             <a href="#terms" className="text-gray-400 hover:text-neon-blue transition-colors">Terms</a>
           </div>

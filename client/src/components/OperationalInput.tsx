@@ -1,17 +1,36 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Upload, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 export default function OperationalInput() {
   const [sourceName, setSourceName] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Lógica unificada para el botón de contacto
-  const handleStartIngestion = (e: React.FormEvent) => {
+  const handleStartIngestion = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `Nexergy Ingestion Request: ${sourceName || 'New Source'}`;
-    const email = "contacto@nexergy.ar";
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+    setIsSubmitting(true);
+
+    // Simulación de proceso de ingesta
+    console.log('Starting ingestion for:', sourceName);
+    
+    // Mostrar mensaje de éxito obligatorio
+    toast.success("Recibido correctamente. Activando agentes específicos para completar el flujo de trabajo hacia el Gemelo Digital", {
+      duration: 5000,
+    });
+
+    // Resetear formulario
+    setSourceName('');
+    setIsSubmitting(false);
+
+    // Transición suave al Digital Twin (sección Orchestrator)
+    setTimeout(() => {
+      const element = document.getElementById('orchestrator');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 1000);
   };
 
   return (
@@ -41,6 +60,7 @@ export default function OperationalInput() {
                 placeholder="e.g. Refinery Plant A"
                 className="w-full bg-[rgba(10,14,39,0.5)] border border-[#00BFFF]/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00BFFF] transition-colors"
                 required
+                disabled={isSubmitting}
               />
             </div>
             
@@ -51,9 +71,10 @@ export default function OperationalInput() {
               </div>
               <Button
                 type="submit"
+                disabled={isSubmitting}
                 className="bg-[#00BFFF] text-[#0a0e27] hover:bg-[#00BFFF]/90 px-8 py-6 rounded-xl font-bold flex items-center gap-2"
               >
-                Start Ingestion
+                {isSubmitting ? 'Processing...' : 'Start Ingestion'}
                 <Upload className="w-5 h-5" />
               </Button>
             </div>
