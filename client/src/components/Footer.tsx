@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Activity, Shield, Zap } from 'lucide-react';
+import { Activity, Shield, Zap, MapPin, Mail } from 'lucide-react';
 
 const footerLinks = {
   platform: [
@@ -53,18 +53,24 @@ export default function Footer() {
                 <span className="text-white"> OIL</span>
               </span>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-4">
+            <p className="text-gray-400 text-sm leading-relaxed mb-6">
               End-to-end industrial optimization. Our experts embed with your teams to transition critical assets from reactive to preventive performance.
             </p>
-            <a 
-              href="mailto:contacto@nexergy.ar" 
-              className="text-sm text-neon-blue hover:text-white transition-colors flex items-center gap-2"
-            >
-              ✉️ contacto@nexergy.ar    
-           </a>
+            <div className="space-y-3">
+              <a 
+                href="mailto:contacto@nexergy.ar" 
+                className="text-sm text-neon-blue hover:text-white transition-colors flex items-center gap-2 w-fit"
+              >
+                <Mail className="w-4 h-4" /> contacto@nexergy.ar    
+              </a>
+              <div className="text-sm text-gray-400 flex items-start gap-2 max-w-sm">
+                <MapPin className="w-4 h-4 text-neon-blue mt-0.5 flex-shrink-0" />
+                <span>Pedernera 1046, Piso 2, Oficina 4, Villa Mercedes, San Luis, Argentina</span>
+              </div>
+            </div>
           </motion.div>
 
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} className="md:pl-12">
             <h4 className="text-white font-semibold mb-4">Platform</h4>
             <ul className="space-y-2">
               {footerLinks.platform.map((link) => (
@@ -106,7 +112,9 @@ export default function Footer() {
           viewport={{ once: true }}
           className="border-t border-[#00BFFF]/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
         >
-          <p className="text-gray-400 text-sm">© 2026 NEXERGY LABS. All rights reserved.</p>
+          <p className="text-gray-400 text-sm">
+            © 2026 NEXERGY LABS / Optinex SAS. All rights reserved.
+          </p>
           <div className="flex gap-6 text-sm">
             <a href="mailto:contacto@nexergy.ar" className="text-neon-blue hover:text-white transition-colors">Contact</a>
             <a href="#privacy" className="text-gray-400 hover:text-neon-blue transition-colors">Privacy</a>
