@@ -1,127 +1,52 @@
-import { motion } from 'framer-motion';
-import { Activity, Shield, Zap, MapPin, Mail } from 'lucide-react';
+import React from 'react';
+import { MapPin, Mail, Phone } from 'lucide-react'; // Asegurando que los iconos estén importados
 
-const footerLinks = {
-  platform: [
-    { label: 'Orchestrator', href: '#orchestrator' },
-    { label: 'Enterprise Solutions', href: '#enterprise-solutions' },
-    { label: 'Data Ingestion', href: '#analytics' },
-  ],
-};
-
-const statusIndicators = [
-  { label: 'System Status', status: 'Operational', icon: <Activity className="w-4 h-4" /> },
-  { label: 'Security', status: 'Secure', icon: <Shield className="w-4 h-4" /> },
-  { label: 'Performance', status: 'Optimal', icon: <Zap className="w-4 h-4" /> },
-];
-
-export default function Footer() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
-  };
-
+export const Footer = () => {
   return (
-    <footer className="bg-[rgba(10,14,39,0.8)] border-t border-[#00BFFF]/20 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
-        >
-          <motion.div variants={itemVariants}>
-            <div className="mb-4">
-              <span className="text-2xl font-bold">
-                <span className="text-neon-blue">NEXERGY</span>
-                <span className="text-white"> OIL</span>
-              </span>
-            </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              End-to-end industrial optimization. Our experts embed with your teams to transition critical assets from reactive to preventive performance.
+    <footer className="bg-black text-gray-400 py-12 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          {/* Columna 1: Marca y Propuesta de Valor */}
+          <div>
+            <h3 className="text-white text-lg font-bold mb-4">NEXERGY OIL</h3>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              "Transformación industrial autónoma liderada por expertos. 
+              Conectamos su estrategia operativa con resultados de alta eficiencia."
             </p>
-            <div className="space-y-3">
-              <a 
-                href="mailto:contacto@nexergy.ar" 
-                className="text-sm text-neon-blue hover:text-white transition-colors flex items-center gap-2 w-fit"
-              >
-                <Mail className="w-4 h-4" /> contacto@nexergy.ar    
-              </a>
-              <div className="text-sm text-gray-400 flex items-start gap-2 max-w-sm">
-                <MapPin className="w-4 h-4 text-neon-blue mt-0.5 flex-shrink-0" />
-                <span>Pedernera 1046, Piso 2, Oficina 4, Villa Mercedes, San Luis, Argentina</span>
-              </div>
-            </div>
-          </motion.div>
+          </div>
 
-          <motion.div variants={itemVariants} className="md:pl-12">
-            <h4 className="text-white font-semibold mb-4">Platform</h4>
-            <ul className="space-y-2">
-              {footerLinks.platform.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-gray-400 hover:text-neon-blue transition-colors text-sm">{link.label}</a>
-                </li>
-              ))}
+          {/* Columna 2: Enlaces Rápidos o Navegación */}
+          <div>
+            <h4 className="text-white text-sm font-semibold mb-4">Solutions</h4>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#enterprise" className="hover:text-white transition-colors">Enterprise Solutions</a></li>
+              <li><a href="#ingestion" className="hover:text-white transition-colors">Data Ingestion</a></li>
+              <li><a href="#pricing" className="hover:text-white transition-colors">Pricing Plans</a></li>
             </ul>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="mb-8 p-4 rounded-lg border border-[#00BFFF]/30 bg-[rgba(0,191,255,0.05)]"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {statusIndicators.map((indicator, idx) => (
-              <div key={idx} className="flex items-center gap-3">
-                <div className="text-[#00BFFF]">{indicator.icon}</div>
-                <div>
-                  <p className="text-xs text-gray-400">{indicator.label}</p>
-                  <p className="text-sm font-semibold text-[#00BFFF] flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#00BFFF] animate-pulse" />
-                    {indicator.status}
-                  </p>
-                </div>
-              </div>
-            ))}
           </div>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="border-t border-[#00BFFF]/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
-        >
-          <p className="text-gray-400 text-sm">
-            © 2026 NEXERGY LABS / Optinex SAS. All rights reserved.
-          </p>
-          <div className="flex gap-6 text-sm">
-            <a href="mailto:contacto@nexergy.ar" className="text-neon-blue hover:text-white transition-colors">Contact</a>
-            <a href="#privacy" className="text-gray-400 hover:text-neon-blue transition-colors">Privacy</a>
-            <a href="#terms" className="text-gray-400 hover:text-neon-blue transition-colors">Terms</a>
+          {/* Columna 3: Información de Contacto y Dirección Actualizada */}
+          <div>
+            <h4 className="text-white text-sm font-semibold mb-4">Contact Us</h4>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-2">
+                <MapPin className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                <span>Blanco Encalada 2311 10 B - CABA - Argentina</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-5 h-5 text-blue-500" />
+                <a href="mailto:info@optinex.sas" className="hover:text-white transition-colors">info@optinex.sas</a>
+              </li>
+            </ul>
           </div>
-        </motion.div>
+
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-gray-900 text-center text-xs text-gray-600">
+          <p>&copy; {new Date().getFullYear()} OPTINEX SAS. All rights reserved.</p>
+        </div>
       </div>
     </footer>
   );
-}
+};
