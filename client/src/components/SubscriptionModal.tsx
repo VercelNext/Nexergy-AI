@@ -1,154 +1,145 @@
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Zap, Shield, Activity } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 
 interface SubscriptionModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, onClose }) => {
-  
+export function SubscriptionModal({ isOpen, onClose }: SubscriptionModalProps) {
+  const mailtoUrl = "mailto:contacto@nexergy.ar?subject=Consulta%20NEXERGY%20OIL";
+
   const plans = [
     {
-      name: "Pilot Plan",
-      icon: <Activity className="w-6 h-6 text-emerald-400" />,
-      description: "Ideal para validaciones iniciales de inteligencia operativa en un solo activo técnico.",
-      price: "$299",
-      period: "/mes",
+      name: 'Starter Tier',
+      price: '$149',
+      period: '/month',
+      description: 'Ideal for initial optimization operations and data assessment.',
       features: [
-        "Monitoreo de 1 activo crítico",
-        "Ingesta de datos básica",
-        "Dashboard operativo estándar",
-        "Soporte por correo electrónico"
+        'Up to 3 connected data sources',
+        'Standard Orchestrator access',
+        'Next-day support response',
+        'Basic Digital Twin modeling'
       ],
-      buttonText: "Iniciar Piloto",
-      popular: false
+      buttonText: 'Subscribe Now',
+      action: () => alert('Redirecting to Stripe checkout...')
     },
     {
-      name: "Operational Intelligence",
-      icon: <Zap className="w-6 h-6 text-cyan-400" />,
-      description: "Conexión completa de fuentes de datos, analíticas avanzadas y optimización en tiempo real.",
-      price: "$799",
-      period: "/mes",
+      name: 'Professional Tier',
+      price: '$499',
+      period: '/month',
+      description: 'Advanced features for scaling industrial operations.',
       features: [
-        "Activos y fuentes ilimitadas",
-        "Análisis predictivo con IA",
-        "Integración de Webhooks nativos",
-        "Soporte prioritario 24/7",
-        "Reportes de eficiencia automatizados"
+        'Unlimited data ingestion',
+        'Full Orchestrator & AI Agents workflow',
+        'Priority 24/7 technical support',
+        'Real-time Digital Twin optimization goals'
       ],
-      buttonText: "Escalar Operación",
+      buttonText: 'Subscribe Now',
+      action: () => alert('Redirecting to Stripe checkout...'),
       popular: true
     },
     {
-      name: "Enterprise Twin",
-      icon: <Shield className="w-6 h-6 text-purple-400" />,
-      description: "Arquitectura completa de Gemelo Digital, soporte para agentes autónomos y customización punta a punta.",
-      price: "Custom",
-      period: "",
+      name: 'Enterprise Solutions',
+      price: 'Custom',
+      period: '',
+      description: 'Full-scale multi-plant autonomy and dedicated architectural design.',
       features: [
-        "Modelado de Gemelo Digital Completo",
-        "Agentes Autónomos de Optimización",
-        "Infraestructura dedicada (Cloudflare D1/R2)",
-        "Acuerdo de Nivel de Servicio (SLA) corporativo",
-        "Consultoría técnica e integración in-situ"
+        'Tailored AI Agent development',
+        'On-premise / Multi-cloud deployment architecture',
+        'Dedicated Solutions Engineer assigned',
+        'Full operational maturity roadmap design'
       ],
-      buttonText: "Contactar Ventas",
-      popular: false
+      buttonText: 'Contact Sales',
+      action: () => {
+        window.location.href = mailtoUrl;
+      }
     }
   ];
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
-          {/* Backdrop / Fondo opaco difuminado */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
           <motion.div
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
           />
 
-          {/* Contenedor del Modal */}
+          {/* Modal Container (~15% más pequeño con max-w-3xl) */}
           <motion.div
-            initial={{ scale: 0.95, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-            transition={{ type: "spring", duration: 0.5 }}
-            className="relative w-full max-w-6xl bg-zinc-950/90 border border-zinc-800 rounded-2xl p-6 md:p-8 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+            className="relative w-full max-w-3xl bg-[#0A0E27] border border-[#00BFFF]/20 rounded-2xl p-6 md:p-8 shadow-[0_0_50px_rgba(0,191,255,0.15)] z-10 overflow-y-auto max-h-[90vh]"
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.3 }}
           >
-            {/* Efecto de luz de fondo */}
-            <div className="absolute -top-40 -left-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
-            {/* Encabezado del Modal */}
-            <div className="flex justify-between items-start mb-8 relative z-10">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-                  NEXERGY <span className="text-emerald-400">OIL</span> SUBSCRIPTION
-                </h2>
-                <p className="text-zinc-400 mt-1 text-sm md:text-base">
-                  Seleccione el nivel de Inteligencia Operativa adecuado para sus activos. Procesado por Optinex SAS vía Stripe.
-                </p>
-              </div>
-              <button
-                onClick={onClose}
-                className="p-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
+            {/* Header */}
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                Choose Your NEXERGY OIL Plan
+              </h2>
+              <p className="text-sm text-gray-400">
+                Unlock autonomous industrial intelligence tailored to your operational scale.
+              </p>
             </div>
 
-            {/* Grilla de Planes */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-              {plans.map((plan, index) => (
+            {/* Pricing Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {plans.map((plan) => (
                 <div
-                  key={index}
-                  className={`relative flex flex-col rounded-xl p-6 bg-zinc-900/60 border transition-all duration-300 hover:translate-y-[-4px] ${
-                    plan.popular 
-                      ? 'border-cyan-500/50 shadow-[0_0_20px_rgba(6,182,212,0.15)] bg-gradient-to-b from-zinc-900/80 to-cyan-950/10' 
-                      : 'border-zinc-800 hover:border-zinc-700'
+                  key={plan.name}
+                  className={`relative flex flex-col rounded-xl p-5 border transition-all duration-300 ${
+                    plan.popular
+                      ? 'bg-[rgba(0,191,255,0.03)] border-[#00BFFF]/40 shadow-[0_0_20px_rgba(0,191,255,0.05)]'
+                      : 'bg-white/[0.01] border-zinc-800 hover:border-zinc-700'
                   }`}
                 >
                   {plan.popular && (
-                    <span className="absolute -top-3 right-4 bg-cyan-500 text-black font-semibold text-xs px-2.5 py-1 rounded-full uppercase tracking-wider">
-                      Recomendado
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider">
+                      Most Popular
                     </span>
                   )}
 
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-zinc-800 border border-zinc-700">
-                      {plan.icon}
-                    </div>
-                    <h3 className="text-lg font-bold text-white">{plan.name}</h3>
+                  <div className="mb-4">
+                    <h3 className="text-base font-bold text-white mb-1">{plan.name}</h3>
+                    <p className="text-xs text-gray-400 min-h-[32px] line-clamp-2">{plan.description}</p>
                   </div>
 
-                  <p className="text-sm text-zinc-400 min-h-[60px]">{plan.description}</p>
-
-                  <div className="my-6">
-                    <span className="text-4xl font-extrabold text-white">{plan.price}</span>
-                    <span className="text-zinc-500 text-sm">{plan.period}</span>
+                  <div className="flex items-baseline gap-1 mb-5">
+                    <span className="text-3xl font-extrabold text-white tracking-tight">{plan.price}</span>
+                    <span className="text-xs text-gray-500">{plan.period}</span>
                   </div>
 
-                  <ul className="space-y-3 mb-8 flex-grow">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-sm text-zinc-300">
-                        <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <ul className="space-y-2.5 flex-1 mb-6">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2 text-xs text-gray-300">
+                        <Check className="w-3.5 h-3.5 text-cyan-400 mt-0.5 shrink-0" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
 
                   <button
-                    className={`w-full py-3 px-4 rounded-lg font-medium tracking-wide transition-all duration-200 ${
+                    onClick={plan.action}
+                    className={`w-full py-2 rounded-lg text-xs font-semibold transition-all duration-200 ${
                       plan.popular
-                        ? 'bg-cyan-500 text-black hover:bg-cyan-400 shadow-lg shadow-cyan-500/20'
-                        : plan.name === "Enterprise Twin"
-                        ? 'bg-zinc-800 text-white hover:bg-zinc-700 border border-zinc-700'
-                        : 'bg-emerald-500 text-black hover:bg-emerald-400'
+                        ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-black hover:from-emerald-400 hover:to-cyan-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+                        : plan.name === 'Enterprise Solutions'
+                        ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-[0_0_15px_rgba(37,99,235,0.2)]'
+                        : 'bg-zinc-800 text-gray-200 hover:bg-zinc-700'
                     }`}
                   >
                     {plan.buttonText}
@@ -161,4 +152,4 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
       )}
     </AnimatePresence>
   );
-};
+}
