@@ -7,48 +7,48 @@ interface SubscriptionModalProps {
 }
 
 export function SubscriptionModal({ isOpen, onClose }: SubscriptionModalProps) {
-  const mailtoUrl = "mailto:contacto@nexergy.ar?subject=Consulta%20NEXERGY%20OIL";
+  const mailtoUrl = "mailto:contacto@nexergy.ar?subject=Consulta%20NEXERGY%20FLEX";
 
   const plans = [
     {
-      name: 'Starter Tier',
+      name: 'Pilot Tier',
       price: '$149',
       period: '/month',
-      description: 'Ideal for initial optimization operations and data assessment.',
+      description: 'Strategic TRL-7 deployment for initial data assessment and single-asset pilot validation.',
       features: [
         'Up to 3 connected data sources',
-        'Standard Orchestrator access',
-        'Next-day support response',
-        'Basic Digital Twin modeling'
+        'Operational Intelligence Layer access',
+        'Standard real-time monitoring',
+        'Next-day support response'
       ],
-      buttonText: 'Subscribe Now',
+      buttonText: 'Start Pilot',
       action: () => alert('Redirecting to Stripe checkout...')
     },
     {
-      name: 'Professional Tier',
+      name: 'Operational Intelligence',
       price: '$499',
       period: '/month',
-      description: 'Advanced features for scaling industrial operations.',
+      description: 'Full data ingestion capabilities driven by our Multi-Vector Orchestration Motor (MIOM™).',
       features: [
-        'Unlimited data ingestion',
-        'Full Orchestrator & AI Agents workflow',
-        'Priority 24/7 technical support',
-        'Real-time Digital Twin optimization goals'
+        'Unlimited data ingestion scaling',
+        'Full MIOM™ optimization access',
+        'Predictive AI modeling & analytics',
+        'Priority 24/7 technical support'
       ],
       buttonText: 'Subscribe Now',
       action: () => alert('Redirecting to Stripe checkout...'),
       popular: true
     },
     {
-      name: 'Enterprise Solutions',
+      name: 'Enterprise Twin',
       price: 'Custom',
       period: '',
-      description: 'Full-scale multi-plant autonomy and dedicated architectural design.',
+      description: 'Tailored multi-vector architectures for Hydrogen, Microgrids, and full Power-to-X solutions.',
       features: [
-        'Tailored AI Agent development',
-        'On-premise / Multi-cloud deployment architecture',
-        'Dedicated Solutions Engineer assigned',
-        'Full operational maturity roadmap design'
+        'Custom Power-to-X module integration',
+        'Dedicated Cloudflare D1/R2 infrastructure',
+        'On-premise or tailored multi-cloud layout',
+        'Full industrial roadmap & SLA design'
       ],
       buttonText: 'Contact Sales',
       action: () => {
@@ -70,7 +70,7 @@ export function SubscriptionModal({ isOpen, onClose }: SubscriptionModalProps) {
             onClick={onClose}
           />
 
-          {/* Modal Container (~15% más pequeño con max-w-3xl) */}
+          {/* Modal Container */}
           <motion.div
             className="relative w-full max-w-3xl bg-[#0A0E27] border border-[#00BFFF]/20 rounded-2xl p-6 md:p-8 shadow-[0_0_50px_rgba(0,191,255,0.15)] z-10 overflow-y-auto max-h-[90vh]"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -89,10 +89,10 @@ export function SubscriptionModal({ isOpen, onClose }: SubscriptionModalProps) {
             {/* Header */}
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                Choose Your NEXERGY OIL Plan
+                NEXERGY <span className="text-[#00BFFF]">FLEX™</span> SUBSCRIPTION
               </h2>
               <p className="text-sm text-gray-400">
-                Unlock autonomous industrial intelligence tailored to your operational scale.
+                Unlock autonomous flexibility and energy orchestration powered by Optinex S.A.S.
               </p>
             </div>
 
@@ -137,7 +137,7 @@ export function SubscriptionModal({ isOpen, onClose }: SubscriptionModalProps) {
                     className={`w-full py-2 rounded-lg text-xs font-semibold transition-all duration-200 ${
                       plan.popular
                         ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-black hover:from-emerald-400 hover:to-cyan-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
-                        : plan.name === 'Enterprise Solutions'
+                        : plan.name === 'Enterprise Twin'
                         ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-[0_0_15px_rgba(37,99,235,0.2)]'
                         : 'bg-zinc-800 text-gray-200 hover:bg-zinc-700'
                     }`}
