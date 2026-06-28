@@ -1,52 +1,71 @@
 import React from 'react';
-import { MapPin, Mail, Phone } from 'lucide-react'; // Asegurando que los iconos estén importados
+import { Mail, ArrowUpRight } from 'lucide-react';
 
-export const Footer = () => {
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-black text-gray-400 py-12 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
-          {/* Columna 1: Marca y Propuesta de Valor */}
-          <div>
-            <h3 className="text-white text-lg font-bold mb-4">NEXERGY OIL</h3>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              "Transformación industrial autónoma liderada por expertos. 
-              Conectamos su estrategia operativa con resultados de alta eficiencia."
-            </p>
-          </div>
-
-          {/* Columna 2: Enlaces Rápidos o Navegación */}
-          <div>
-            <h4 className="text-white text-sm font-semibold mb-4">Solutions</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#enterprise" className="hover:text-white transition-colors">Enterprise Solutions</a></li>
-              <li><a href="#ingestion" className="hover:text-white transition-colors">Data Ingestion</a></li>
-              <li><a href="#pricing" className="hover:text-white transition-colors">Pricing Plans</a></li>
-            </ul>
-          </div>
-
-          {/* Columna 3: Información de Contacto y Dirección Actualizada */}
-          <div>
-            <h4 className="text-white text-sm font-semibold mb-4">Contact Us</h4>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2">
-                <MapPin className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-                <span>Blanco Encalada 2311 10 B - CABA - Argentina</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-5 h-5 text-blue-500" />
-                <a href="mailto:info@optinex.sas" className="hover:text-white transition-colors">info@optinex.sas</a>
-              </li>
-            </ul>
-          </div>
-
+    <footer className="bg-black text-white border-t border-zinc-800 py-12 px-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        {/* Brand & Strategy Statement */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">
+            NEXERGY OIL
+          </h3>
+          <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
+            "Operational intelligence architecture. We empower your leadership team with customized industrial solutions and specialized technical support."
+          </p>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-900 text-center text-xs text-gray-600">
-          <p>&copy; {new Date().getFullYear()} OPTINEX SAS. All rights reserved.</p>
+        {/* Quick Links & Actions */}
+        <div className="space-y-4">
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+            Solutions
+          </h4>
+          <ul className="space-y-2 text-sm text-zinc-400">
+            <li>
+              <a href="#enterprise" className="hover:text-emerald-400 transition-colors flex items-center gap-1">
+                Enterprise Solutions <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </li>
+            <li>
+              <a href="#pricing" className="hover:text-emerald-400 transition-colors">
+                SaaS Subscription Plans
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Contact & Support */}
+        <div className="space-y-4">
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+            Contact Us
+          </h4>
+          <p className="text-sm text-zinc-400">
+            Need specialized advice? Connect with our technical team:
+          </p>
+          <a 
+            href="mailto:contacto@nexergy.ar" 
+            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors font-medium text-sm border border-zinc-800 rounded-full px-4 py-2 bg-zinc-950 hover:bg-zinc-900"
+          >
+            <Mail className="w-4 h-4" />
+            contacto@nexergy.ar
+          </a>
+        </div>
+
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-zinc-500">
+        <div>
+          &copy; {currentYear} NEXERGY OIL. All rights reserved. Powered by Optinex SAS.
+        </div>
+        <div className="flex gap-6">
+          <a href="#privacy" className="hover:text-zinc-300 transition-colors">Privacy Policy</a>
+          <a href="#terms" className="hover:text-zinc-300 transition-colors">Terms of Service</a>
         </div>
       </div>
     </footer>
   );
-};
+}
