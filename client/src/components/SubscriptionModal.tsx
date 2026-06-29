@@ -27,7 +27,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
     },
     {
       name: 'Scale Pro',
-      price: '$499',
+      price: '$299',
       period: '/month',
       description: 'Advanced optimization of energy vectors and scalable operational intelligence.',
       features: [
@@ -76,7 +76,6 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            {/* CAMBIO AQUÍ: De max-w-5xl a max-w-4xl */}
             className="relative w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden z-10"
           >
             {/* Background glow effect */}
@@ -172,4 +171,6 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
           </motion.div>
         </div>
       )}
-    </
+    </AnimatePresence>
+  );
+};
