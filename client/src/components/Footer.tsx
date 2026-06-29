@@ -1,117 +1,94 @@
-import { motion } from 'framer-motion';
-import { Activity, Shield, Zap } from 'lucide-react';
-
-const footerLinks = {
-  platform: [
-    { label: 'Orchestrator', href: '#orchestrator' },
-    { label: 'Data Ingestion', href: '#analytics' },
-  ],
-};
-
-const statusIndicators = [
-  { label: 'System Status', status: 'Operational', icon: <Activity className="w-4 h-4" /> },
-  { label: 'Security', status: 'Secure', icon: <Shield className="w-4 h-4" /> },
-  { label: 'Performance', status: 'Optimal', icon: <Zap className="w-4 h-4" /> },
-];
+import React from 'react';
+import { Mail, ArrowUpRight, ShieldCheck } from 'lucide-react';
 
 export default function Footer() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
+  const currentYear = new Date().getFullYear();
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
-  };
+  // Rutas locales relativas a la carpeta pública de tu servidor
+  const PRIVACY_POLICY_URL = "/privacy.pdf";
+  const TERMS_OF_SERVICE_URL = "/terms.pdf";
 
   return (
-    <footer className="bg-[rgba(10,14,39,0.8)] border-t border-[#00BFFF]/20 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
-        >
-          <motion.div variants={itemVariants}>
-            <div className="mb-4">
-              <span className="text-2xl font-bold">
-                <span className="text-neon-blue">NEXERGY</span>
-                <span className="text-white"> OIL</span>
-              </span>
-            </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-4">
-              Operational Intelligence Layer for industrial optimization and autonomous execution.
-            </p>
-            <a 
-              href="mailto:contacto@nexergy.ar" 
-              className="text-sm text-neon-blue hover:text-white transition-colors flex items-center gap-2"
-            >
-              ✉️ contacto@nexergy.ar
-            </a>
-          </motion.div>
+    <footer className="bg-black text-white border-t border-zinc-800 py-12 px-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        {/* Brand & Strategy Statement */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">
+            NEXERGY OIL
+          </h3>
+          <p className="text-sm text-zinc-400 leading-relaxed max-w-sm">
+            "Operational intelligence architecture. We empower your leadership team with customized industrial solutions and specialized technical support."
+          </p>
+        </div>
 
-          <motion.div variants={itemVariants}>
-            <h4 className="text-white font-semibold mb-4">Platform</h4>
-            <ul className="space-y-2">
-              {footerLinks.platform.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-gray-400 hover:text-neon-blue transition-colors text-sm">{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </motion.div>
+        {/* Quick Links & Actions */}
+        <div className="space-y-4">
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+            Solutions
+          </h4>
+          <ul className="space-y-2 text-sm text-zinc-400">
+            <li>
+              <a href="#enterprise" className="hover:text-emerald-400 transition-colors flex items-center gap-1">
+                Enterprise Solutions <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </li>
+            <li>
+              <a href="#pricing" className="hover:text-emerald-400 transition-colors">
+                SaaS Subscription Plans
+              </a>
+            </li>
+          </ul>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="mb-8 p-4 rounded-lg border border-[#00BFFF]/30 bg-[rgba(0,191,255,0.05)]"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {statusIndicators.map((indicator, idx) => (
-              <div key={idx} className="flex items-center gap-3">
-                <div className="text-[#00BFFF]">{indicator.icon}</div>
-                <div>
-                  <p className="text-xs text-gray-400">{indicator.label}</p>
-                  <p className="text-sm font-semibold text-[#00BFFF] flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#00BFFF] animate-pulse" />
-                    {indicator.status}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Contact & Support */}
+        <div className="space-y-4">
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+            Contact Us
+          </h4>
+          <p className="text-sm text-zinc-400">
+            Need specialized advice? Connect with our technical team:
+          </p>
+          <a 
+            href="mailto:contacto@nexergy.ar" 
+            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors font-medium text-sm border border-zinc-800 rounded-full px-4 py-2 bg-zinc-950 hover:bg-zinc-900"
+          >
+            <Mail className="w-4 h-4" />
+            contacto@nexergy.ar
+          </a>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="border-t border-[#00BFFF]/20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
-        >
-          <p className="text-gray-400 text-sm">© 2026 NEXERGY OIL. All rights reserved.</p>
-          <div className="flex gap-6 text-sm">
-            <a href="mailto:contacto@nexergy.ar" className="text-neon-blue hover:text-white transition-colors">Contact</a>
-            <a href="#privacy" className="text-gray-400 hover:text-neon-blue transition-colors">Privacy</a>
-            <a href="#terms" className="text-gray-400 hover:text-neon-blue transition-colors">Terms</a>
-          </div>
-        </motion.div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-zinc-500">
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+          <span>
+            &copy; {currentYear} NEXERGY OIL. All rights reserved. Powered by Optinex SAS.
+          </span>
+          <span className="hidden sm:inline text-zinc-800">|</span>
+          <span className="flex items-center gap-1 text-zinc-400 bg-zinc-950 px-2 py-0.5 border border-zinc-900 rounded">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" /> Compliance & Security SOC 2
+          </span>
+        </div>
+        <div className="flex gap-6 font-medium">
+          <a 
+            href={PRIVACY_POLICY_URL} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-zinc-300 transition-colors underline decoration-zinc-800 underline-offset-4 hover:decoration-zinc-500"
+          >
+            Privacy Policy
+          </a>
+          <a 
+            href={TERMS_OF_SERVICE_URL} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-zinc-300 transition-colors underline decoration-zinc-800 underline-offset-4 hover:decoration-zinc-500"
+          >
+            Terms of Service
+          </a>
+        </div>
       </div>
     </footer>
   );

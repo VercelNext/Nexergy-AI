@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
+import path from "path"; // Requerido para resolver las rutas absolutas de forma segura
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
@@ -49,6 +50,35 @@ async function startServer() {
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
+    // 1. CAPTURA DE RUTAS VIRTUALES DEL CLIENTE (Evita que serveStatic tire un 404 anticipado)
+    app.get("*", (req, res, next) => {
+      // Si la petición va a la API, a tRPC, o tiene extensión de archivo físico (ej: .js, .css, .png), déjala pasar
+      if (
+        req.path.startsWith("/api") || 
+        req.path.startsWith("/trpc") || 
+        req.path.includes(".")
+      ) {
+        return next();
+      }
+
+      try {
+        // Resolvemos la ruta absoluta desde la raíz de ejecución del proyecto en Render
+        const clientDistPath = path.resolve(process.cwd(), "client/dist");
+        
+        res.sendFile(path.join(clientDistPath, "index.html"), (err) => {
+          if (err) {
+            console.error("[Static Fallback] No se pudo enviar index.html, delegando:", err);
+            next();
+          }
+        });
+      } catch (error) {
+        console.error("[Static Fallback] Error crítico en ruteo virtual:", error);
+        next();
+      }
+    });
+
+    // 2. SERVIR ARCHIVOS ESTÁTICOS BASE
+    // Si la petición no se interceptó arriba (porque era un archivo real), delegamos en tu función nativa
     serveStatic(app);
   }
 
