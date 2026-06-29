@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
-import path from "path"; // Importación requerida para manejar rutas de archivos de forma segura
+import path from "path"; // Requerido para resolver las rutas absolutas de forma segura
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
@@ -50,33 +50,36 @@ async function startServer() {
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
-    // Primero sirve los archivos estáticos base generados por Vite
-    serveStatic(app);
-    
-    // SOLUCIÓN AL 404 DE PRODUCCIÓN (REACT ROUTER FALLBACK)
-    // Captura cualquier ruta que no coincida con archivos estáticos físicos reales ni APIs
+    // 1. CAPTURA DE RUTAS VIRTUALES DEL CLIENTE (Evita que serveStatic tire un 404 anticipado)
     app.get("*", (req, res, next) => {
-      // Si la petición va dirigida explícitamente a endpoints de datos, la dejamos seguir
-      if (req.path.startsWith("/api") || req.path.startsWith("/trpc")) {
+      // Si la petición va a la API, a tRPC, o tiene extensión de archivo físico (ej: .js, .css, .png), déjala pasar
+      if (
+        req.path.startsWith("/api") || 
+        req.path.startsWith("/trpc") || 
+        req.path.includes(".")
+      ) {
         return next();
       }
 
       try {
-        // Obtenemos la ruta absoluta de forma segura desde la raíz de ejecución del proyecto en Render
+        // Resolvemos la ruta absoluta desde la raíz de ejecución del proyecto en Render
         const clientDistPath = path.resolve(process.cwd(), "client/dist");
         
         res.sendFile(path.join(clientDistPath, "index.html"), (err) => {
           if (err) {
-            // Evita un crash del proceso de Node registrando el error de forma limpia en Render logs
-            console.error("[Static Fallback] Error enviando index.html:", err);
+            console.error("[Static Fallback] No se pudo enviar index.html, delegando:", err);
             next();
           }
         });
       } catch (error) {
-        console.error("[Static Fallback] Error crítico en el ruteo:", error);
+        console.error("[Static Fallback] Error crítico en ruteo virtual:", error);
         next();
       }
     });
+
+    // 2. SERVIR ARCHIVOS ESTÁTICOS BASE
+    // Si la petición no se interceptó arriba (porque era un archivo real), delegamos en tu función nativa
+    serveStatic(app);
   }
 
   const preferredPort = parseInt(process.env.PORT || "3000");
