@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, ArrowRight, CreditCard, Shield, MessageSquare } from 'lucide-react';
+import { X, Check, ArrowRight, CreditCard, Shield, MessageSquare, ShieldCheck } from 'lucide-react';
 
 interface SubscriptionModalProps {
   isOpen: boolean;
@@ -19,12 +19,11 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
         'Up to 2 active autonomous agents',
         'Standard email support (24-48h)'
       ],
-      buttonText: 'Comenzar gratis',
+      buttonText: 'Start for Free',
       buttonIcon: ArrowRight,
       isStripe: false,
       popular: false,
       action: () => {
-        // Redirección al flujo de registro o workspace
         window.location.href = '/register'; 
       }
     },
@@ -175,10 +174,34 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
               })}
             </div>
 
-            {/* Footer Notice */}
-            <div className="p-4 border-t border-slate-800 bg-slate-900/30 flex items-center justify-center gap-2 text-xs text-slate-400">
-              <span>All operations under terms and security guidelines of Compliance & Security</span>
-              <span className="font-semibold text-slate-300">SOC 2</span>
+            {/* Replicated Footer Notice & Consent Links (Círculo Rojo) */}
+            <div className="p-5 border-t border-slate-800 bg-slate-900/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+              <div className="flex items-center gap-1.5 bg-slate-950 px-2 py-0.5 border border-slate-800 rounded text-slate-400">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                Compliance & Security SOC 2 / ISO 42001
+              </div>
+              <div className="flex items-center gap-2 text-center sm:text-right">
+                <span>By continuing, you agree to our</span>
+                <div className="flex gap-3 font-medium">
+                  <a 
+                    href="/privacy.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-slate-400 hover:text-emerald-400 transition-colors underline decoration-slate-800 underline-offset-4 hover:decoration-emerald-500/40"
+                  >
+                    Privacy Policy
+                  </a>
+                  <span className="text-slate-800">|</span>
+                  <a 
+                    href="/terms.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-slate-400 hover:text-emerald-400 transition-colors underline decoration-slate-800 underline-offset-4 hover:decoration-emerald-500/40"
+                  >
+                    Terms of Service
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
