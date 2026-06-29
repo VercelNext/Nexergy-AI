@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
+import path from "path"; // 1. Añadimos path para resolver la ruta de producción
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
@@ -50,6 +51,22 @@ async function startServer() {
     await setupVite(app, server);
   } else {
     serveStatic(app);
+    
+    // 2. SOLUCIÓN AL 404: Captura cualquier ruta que no sea de API y sirve el index.html
+    // Apunta a tu carpeta dist de producción. Ajustamos la jerarquía según tu monorepo.
+    const clientDistPath = path.join(__dirname, "../../../client/dist");
+    
+    app.get("*", (req, res, next) => {
+      // Si la petición viene buscando explícitamente una ruta de API o tRPC, la dejamos pasar
+      if (req.path.startsWith("/api") || req.path.startsWith("/trpc")) {
+        return next();
+      }
+      res.sendFile(path.join(clientDistPath, "index.html"), (err) => {
+        if (err) {
+          next();
+        }
+      });
+    });
   }
 
   const preferredPort = parseInt(process.env.PORT || "3000");
