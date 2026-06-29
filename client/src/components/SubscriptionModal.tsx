@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, ArrowRight, MessageSquare, CreditCard, Shield } from 'lucide-react';
+import { X, Check, ArrowRight, CreditCard, Shield, MessageSquare } from 'lucide-react';
 
 interface SubscriptionModalProps {
   isOpen: boolean;
@@ -10,8 +10,8 @@ interface SubscriptionModalProps {
 export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, onClose }) => {
   const plans = [
     {
-      name: 'Starter / Pilot',
-      price: 'Contact Us',
+      name: 'Starter Free',
+      price: 'Free',
       description: 'Evaluate the platform capabilities in controlled environments or initial assets.',
       features: [
         'Access to core connectors (Cloudflare D1/R2)',
@@ -19,11 +19,14 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
         'Up to 2 active autonomous agents',
         'Standard email support (24-48h)'
       ],
-      buttonText: 'Contact Sales',
-      buttonIcon: MessageSquare,
+      buttonText: 'Comenzar gratis',
+      buttonIcon: ArrowRight,
       isStripe: false,
       popular: false,
-      action: () => window.location.href = 'mailto:contacto@nexergy.ar?subject=Inquiry: Starter / Pilot Plan - Nexergy'
+      action: () => {
+        // Redirección al flujo de registro o workspace
+        window.location.href = '/register'; 
+      }
     },
     {
       name: 'Scale Pro',
@@ -154,9 +157,18 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
                           : 'bg-slate-800 hover:bg-slate-700 text-slate-200'
                       }`}
                     >
-                      <Icon className="w-4 h-4" />
-                      {plan.buttonText}
-                      {plan.popular && <ArrowRight className="w-3.5 h-3.5 ml-0.5" />}
+                      {plan.name === 'Starter Free' ? (
+                        <>
+                          {plan.buttonText}
+                          <Icon className="w-4 h-4 ml-0.5" />
+                        </>
+                      ) : (
+                        <>
+                          <Icon className="w-4 h-4" />
+                          {plan.buttonText}
+                          {plan.popular && <ArrowRight className="w-3.5 h-3.5 ml-0.5" />}
+                        </>
+                      )}
                     </button>
                   </div>
                 );
@@ -165,8 +177,8 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
 
             {/* Footer Notice */}
             <div className="p-4 border-t border-slate-800 bg-slate-900/30 flex items-center justify-center gap-2 text-xs text-slate-400">
-              <span>All operations under terms and security guidelines of</span>
-              <span className="font-semibold text-slate-300">Optinex SAS</span>
+              <span>All operations under terms and security guidelines of Compliance & Security</span>
+              <span className="font-semibold text-slate-300">SOC 2</span>
             </div>
           </motion.div>
         </div>
