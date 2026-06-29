@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
-import path from "path"; // 1. Añadimos path para resolver la ruta de producción
+import path from "path"; // Importación requerida para manejar rutas de archivos de forma segura
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
@@ -50,22 +50,32 @@ async function startServer() {
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
+    // Primero sirve los archivos estáticos base generados por Vite
     serveStatic(app);
     
-    // 2. SOLUCIÓN AL 404: Captura cualquier ruta que no sea de API y sirve el index.html
-    // Apunta a tu carpeta dist de producción. Ajustamos la jerarquía según tu monorepo.
-    const clientDistPath = path.join(__dirname, "../../../client/dist");
-    
+    // SOLUCIÓN AL 404 DE PRODUCCIÓN (REACT ROUTER FALLBACK)
+    // Captura cualquier ruta que no coincida con archivos estáticos físicos reales ni APIs
     app.get("*", (req, res, next) => {
-      // Si la petición viene buscando explícitamente una ruta de API o tRPC, la dejamos pasar
+      // Si la petición va dirigida explícitamente a endpoints de datos, la dejamos seguir
       if (req.path.startsWith("/api") || req.path.startsWith("/trpc")) {
         return next();
       }
-      res.sendFile(path.join(clientDistPath, "index.html"), (err) => {
-        if (err) {
-          next();
-        }
-      });
+
+      try {
+        // Obtenemos la ruta absoluta de forma segura desde la raíz de ejecución del proyecto en Render
+        const clientDistPath = path.resolve(process.cwd(), "client/dist");
+        
+        res.sendFile(path.join(clientDistPath, "index.html"), (err) => {
+          if (err) {
+            // Evita un crash del proceso de Node registrando el error de forma limpia en Render logs
+            console.error("[Static Fallback] Error enviando index.html:", err);
+            next();
+          }
+        });
+      } catch (error) {
+        console.error("[Static Fallback] Error crítico en el ruteo:", error);
+        next();
+      }
     });
   }
 
