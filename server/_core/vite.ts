@@ -48,20 +48,34 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  const distPath =
-    process.env.NODE_ENV === "development"
-      ? path.resolve(import.meta.dirname, "../..", "dist", "public")
-      : path.resolve(import.meta.dirname, "public");
+  // CORRECCIÓN DE RUTA ABSOLUTA PARA PRODUCCIÓN (Monorepo en Render)
+  // Apunta con precisión a la carpeta real donde Vite deposita el build del cliente.
+  const distPath = path.resolve(process.cwd(), "client/dist");
+
   if (!fs.existsSync(distPath)) {
     console.error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`
+      `[Static] Could not find the build directory: ${distPath}, make sure to build the client first`
     );
   }
 
-  app.use(express.static(distPath));
+  // 1. Servir archivos estáticos físicos reales (.js, .css, .png, etc.) desde la raíz correcta
+  app.use(express.static(distPath, { index: false }));
 
-  // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+  // 2. Fallback definitivo para Single Page Application (React Router)
+  // Intercepta las solicitudes de navegación del navegador y les sirve el index.html
+  app.get("*", (req, res, next) => {
+    // Si la petición es explícitamente para endpoints de la API o tRPC, la dejamos seguir su flujo normal
+    if (req.path.startsWith("/api") || req.path.startsWith("/trpc")) {
+      return next();
+    }
+
+    const indexPath = path.join(distPath, "index.html");
+    
+    if (fs.existsSync(indexPath)) {
+      res.sendFile(indexPath);
+    } else {
+      console.error(`[Static Fallback] Critical Error: index.html missing at ${indexPath}`);
+      res.status(404).send("Frontend build assets missing. Please trigger a clean redeploy.");
+    }
   });
 }
