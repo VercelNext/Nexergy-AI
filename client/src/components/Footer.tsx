@@ -4,9 +4,9 @@ import { Mail, ArrowUpRight, ShieldCheck } from 'lucide-react';
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // URLs de los documentos legales oficiales en inglés alojados de forma segura
-  const PRIVACY_POLICY_URL = "https://docs.google.com/document/d/1WhBxO8WpyxtgpYV5lnzyXMzLeZWcEPWnfIu0cwPHFIc/edit?usp=sharing";
-  const TERMS_OF_SERVICE_URL = "https://docs.google.com/document/d/1EZPhDsHbHOL12oTgN1f0CQIEQngGhw5nWlw24vRpuL0/edit?usp=sharing";
+  // Rutas locales relativas a la carpeta pública de tu servidor
+  const PRIVACY_POLICY_URL = "/privacy.pdf";
+  const TERMS_OF_SERVICE_URL = "/terms.pdf";
 
   return (
     <footer className="bg-black text-white border-t border-zinc-800 py-12 px-6">
