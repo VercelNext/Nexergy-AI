@@ -27,7 +27,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
     },
     {
       name: 'Scale Pro',
-      price: '$299',
+      price: '$499',
       period: '/month',
       description: 'Advanced optimization of energy vectors and scalable operational intelligence.',
       features: [
@@ -42,7 +42,6 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
       isStripe: true,
       popular: true,
       action: () => {
-        // TODO: Develop and integrate Stripe Checkout gateway
         alert('Connecting to Stripe gateway... (Coming Soon)');
       }
     },
@@ -77,7 +76,8 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="relative w-full max-w-5xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden z-10"
+            {/* CAMBIO AQUÍ: De max-w-5xl a max-w-4xl */}
+            className="relative w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden z-10"
           >
             {/* Background glow effect */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/10 blur-[120px] pointer-events-none" />
@@ -114,7 +114,6 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
                         : 'bg-slate-900/40 border-slate-800 hover:border-slate-700'
                     }`}
                   >
-                    {/* Popular/Recommended Tag for the central plan */}
                     {plan.popular && (
                       <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
                         Most Popular
@@ -128,7 +127,6 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
                       </p>
                     </div>
 
-                    {/* Pricing Section */}
                     <div className="mb-6 flex items-baseline text-white">
                       <span className="text-3xl font-extrabold tracking-tight">
                         {plan.price}
@@ -140,7 +138,6 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
                       )}
                     </div>
 
-                    {/* Features List */}
                     <ul className="space-y-3 mb-8 flex-1">
                       {plan.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-300">
@@ -150,7 +147,6 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
                       ))}
                     </ul>
 
-                    {/* Action Button */}
                     <button
                       onClick={plan.action}
                       className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-xs font-bold transition-all duration-200 ${
@@ -176,6 +172,4 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
-  );
-};
+    </
