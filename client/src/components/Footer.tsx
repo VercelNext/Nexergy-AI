@@ -1,8 +1,12 @@
 import React from 'react';
-import { Mail, ArrowUpRight } from 'lucide-react';
+import { Mail, ArrowUpRight, ShieldCheck } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  // URLs de los documentos legales oficiales en inglés alojados de forma segura
+  const PRIVACY_POLICY_URL = "https://docs.google.com/document/d/1WhBxO8WpyxtgpYV5lnzyXMzLeZWcEPWnfIu0cwPHFIc/edit?usp=sharing";
+  const TERMS_OF_SERVICE_URL = "https://docs.google.com/document/d/1EZPhDsHbHOL12oTgN1f0CQIEQngGhw5nWlw24vRpuL0/edit?usp=sharing";
 
   return (
     <footer className="bg-black text-white border-t border-zinc-800 py-12 px-6">
@@ -58,12 +62,32 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-zinc-500">
-        <div>
-          &copy; {currentYear} NEXERGY OIL. All rights reserved. Powered by Optinex SAS.
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+          <span>
+            &copy; {currentYear} NEXERGY OIL. All rights reserved. Powered by Optinex SAS.
+          </span>
+          <span className="hidden sm:inline text-zinc-800">|</span>
+          <span className="flex items-center gap-1 text-zinc-400 bg-zinc-950 px-2 py-0.5 border border-zinc-900 rounded">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" /> Compliance & Security SOC 2
+          </span>
         </div>
-        <div className="flex gap-6">
-          <a href="#privacy" className="hover:text-zinc-300 transition-colors">Privacy Policy</a>
-          <a href="#terms" className="hover:text-zinc-300 transition-colors">Terms of Service</a>
+        <div className="flex gap-6 font-medium">
+          <a 
+            href={PRIVACY_POLICY_URL} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-zinc-300 transition-colors underline decoration-zinc-800 underline-offset-4 hover:decoration-zinc-500"
+          >
+            Privacy Policy
+          </a>
+          <a 
+            href={TERMS_OF_SERVICE_URL} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-zinc-300 transition-colors underline decoration-zinc-800 underline-offset-4 hover:decoration-zinc-500"
+          >
+            Terms of Service
+          </a>
         </div>
       </div>
     </footer>
