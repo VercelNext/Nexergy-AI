@@ -27,7 +27,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
     },
     {
       name: 'Scale Pro',
-      price: '$299',
+      price: '$499',
       period: '/month',
       description: 'Advanced optimization of energy vectors and scalable operational intelligence.',
       features: [
