@@ -7,15 +7,27 @@ import OperationalInput from '@/components/OperationalInput';
 import TrustGovernance from '@/components/TrustGovernance';
 import PlatformArchitecture from '@/components/PlatformArchitecture';
 import Footer from '@/components/Footer';
+import { SubscriptionModal } from '@/components/SubscriptionModal';
 import { OnboardingModal } from '@/components/OnboardingModal';
 
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubscriptionOpen, setIsSubscriptionOpen] = useState(false);
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+
+  // Al hacer clic en Join en la navegación
+  const handleOpenJoin = () => {
+    setIsSubscriptionOpen(true);
+  };
+
+  // Al seleccionar "Start for Free" en el modal de suscripción
+  const handleSelectStartForFree = () => {
+    setIsSubscriptionOpen(false);
+    setIsOnboardingOpen(true);
+  };
 
   return (
     <div className="w-full bg-gradient-to-b from-[#0a0e27] via-[#0f1535] to-[#0a0e27]">
-      {/* Pasamos la función para abrir el modal */}
-      <Navigation onOpenJoin={() => setIsModalOpen(true)} />
+      <Navigation onOpenJoin={handleOpenJoin} />
 
       <Hero />
 
@@ -27,7 +39,6 @@ export default function Home() {
         <OperationalInput />
       </div>
 
-      {/* Agregamos el id="governance" para que funcione el scroll del menú */}
       <div id="governance">
         <TrustGovernance />
       </div>
@@ -36,10 +47,17 @@ export default function Home() {
 
       <Footer />
 
-      {/* Renderizamos el modal en la raíz de Home */}
-      <OnboardingModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      {/* 1. Modal con los 3 planes de suscripción */}
+      <SubscriptionModal
+        isOpen={isSubscriptionOpen}
+        onClose={() => setIsSubscriptionOpen(false)}
+        onSelectStartForFree={handleSelectStartForFree}
+      />
+
+      {/* 2. Modal de Onboarding Corporativo (desplegado tras presionar Start for Free) */}
+      <OnboardingModal
+        isOpen={isOnboardingOpen}
+        onClose={() => setIsOnboardingOpen(false)}
       />
     </div>
   );
