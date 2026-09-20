@@ -24,6 +24,49 @@ The platform implements a multi-tenant corporate onboarding model where domain v
 
 ## Architecture Overview
 
+┌─────────────────────────────────────────────────────────────┐
+│                   NEXERGY AI Platform                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │              Frontend (React + Tailwind)             │   │
+│  │  ┌─────────────────────────────────────────────────┐ │   │
+│  │  │ Hero Section (Particles + Dynamic CTAs)         │ │   │
+│  │  │ Home Landing Page & Plan Selection ("Start Free") │   │
+│  │  │ Onboarding Wizard Modal (Domain & Roles)        │ │   │
+│  │  │ Operational Orchestrator (5-Step Flow)          │ │   │
+│  │  │ Operational Input (Sector + Streaming LLM)      │ │   │
+│  │  │ Operational Dashboard (KPIs, Charts, Analyzers) │ │   │
+│  │  │ Dedicated Tenant Portals (/polimetal,/niza,etc) │ │   │
+│  │  │ Intelligence Layers (5 AI Capabilities)         │ │   │
+│  │  │ Trust & Governance (ISO 42001, SOC 2, Audit)   │ │   │
+│  │  │ Navigation (Sticky Header + Scroll-Spy)         │ │   │
+│  │  │ Footer (Links, Status Indicators, Legal)        │ │   │
+│  │  └─────────────────────────────────────────────────┘ │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                          ↕                                  │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │         tRPC Client (Type-Safe API Layer)            │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                          ↕                                  │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │              Backend (Express + tRPC)                │   │
+│  │  ┌─────────────────────────────────────────────────┐ │   │
+│  │  │ Auth Router (OAuth, Domain Guard, Role Whitelist) │   │
+│  │  │ AI Router (LLM Analysis & Analyzer Engine)      │ │   │
+│  │  │ System Router (Health, Notifications, Logs)     │ │   │
+│  │  └─────────────────────────────────────────────────┘ │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                          ↕                                  │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │         External Services & Data Layer               │   │
+│  │  ├─ Manus OAuth (Authentication)                     │   │
+│  │  ├─ LLM API (Intelligence Analysis)                  │   │
+│  │  ├─ MySQL / TiDB Database (Multi-Tenant Persistence) │   │
+│  │  └─ Storage & Connectors (Cloudflare D1/R2)          │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ---
 
 ## Multi-Tenant Onboarding & Domain Authorization Model
@@ -166,6 +209,53 @@ Comprehensive footer with status indicators (System Operational, Security Level,
 
 ## File Structure
 
+
+nexergy-ai-platform/
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Hero.tsx
+│   │   │   ├── OperationalOrchestrator.tsx
+│   │   │   ├── OperationalInput.tsx
+│   │   │   ├── OperationalDashboard.tsx
+│   │   │   ├── IntelligenceLayers.tsx
+│   │   │   ├── TrustGovernance.tsx
+│   │   │   ├── PlatformArchitecture.tsx
+│   │   │   ├── Navigation.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── ParticleBackground.tsx
+│   │   │   └── ui/ (shadcn/ui components)
+│   │   ├── pages/
+│   │   │   ├── Home.tsx                  # Global Landing + Onboarding Wizard Modal
+│   │   │   ├── IntegrationsPolimetal.tsx # Dedicated Portal (@polimetalruedas.com.ar)
+│   │   │   ├── IntegrationsNiza.tsx      # Dedicated Portal (@niza.com.ar)
+│   │   │   ├── IntegrationsAluar.tsx     # Dedicated Portal (@aluar.com.ar)
+│   │   │   └── NotFound.tsx
+│   │   ├── App.tsx                       # Router & Domain Route Configuration
+│   │   ├── main.tsx
+│   │   └── index.css
+│   ├── index.html
+│   └── public/
+├── server/
+│   ├── routers.ts                        # tRPC API Routers
+│   ├── db.ts                             # Database Connection & Drizzle setup
+│   ├── storage.ts
+│   └── _core/
+│       ├── context.ts
+│       ├── llm.ts
+│       ├── oauth.ts
+│       └── domainGuard.ts                # Domain & Role Verification Middleware
+├── drizzle/
+│   ├── schema.ts                         # Multi-tenant DB Schema & Whitelists
+│   └── migrations/
+├── shared/
+│   ├── const.ts
+│   └── types.ts
+├── package.json
+├── PROJECT_ARCHITECTURE.md
+├── tsconfig.json
+├── vite.config.ts
+└── vitest.config.ts
 ---
 
 ## Development Workflow
