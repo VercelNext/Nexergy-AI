@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ interface OnboardingModalProps {
 }
 
 export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
+  const [modalOpen, setModalOpen] = useState(isOpen);
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [domain, setDomain] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -21,6 +22,20 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
     engineering: "",
     processes: "",
   });
+
+  // Sincronizar prop externa con estado interno
+  useEffect(() => {
+    setModalOpen(isOpen);
+  }, [isOpen]);
+
+  // Escuchar el evento global desde Navigation u otros botones
+  useEffect(() => {
+    const handleGlobalOpen = () => setModalOpen(true);
+    window.addEventListener("open-onboarding-modal", handleGlobalOpen);
+    return () => {
+      window.removeEventListener("open-onboarding-modal", handleGlobalOpen);
+    };
+  }, []);
 
   const handleDomainSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,11 +61,12 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
     setStep(1);
     setDomain("");
     setTeamEmails({ it: "", maintenance: "", engineering: "", processes: "" });
+    setModalOpen(false);
     onClose();
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleResetAndClose}>
+    <Dialog open={modalOpen} onOpenChange={handleResetAndClose}>
       <DialogContent className="sm:max-w-[550px] bg-slate-900 text-white border-slate-800">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-xl">
