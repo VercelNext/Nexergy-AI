@@ -142,7 +142,7 @@ export default function IntegrationsPolimetal() {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-bold tracking-tight text-white">Guía de Despliegue por Áreas</h2>
-            <p className="text-xs text-slate-400">Pasos requeridos para coordinar los analizadores de red con la IA</p>
+            <p className="text-xs text-slate-400">Pasos requeridos para integrar los analizadores de red </p>
           </div>
           <span className="flex items-center gap-1 text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
             <ShieldCheck className="w-3.5 h-3.5" /> Encriptación TLS v1.3
