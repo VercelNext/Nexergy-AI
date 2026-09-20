@@ -14,7 +14,7 @@ interface OnboardingModalProps {
 export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
   const [modalOpen, setModalOpen] = useState(isOpen);
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [domain, setDomain] = useState("");
+  const [domain, setDomain] = useState("suorganizacion.com"); // <-- Cambiado de por defecto
   const [companyName, setCompanyName] = useState("");
   const [teamEmails, setTeamEmails] = useState({
     it: "",
@@ -59,7 +59,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
 
   const handleResetAndClose = () => {
     setStep(1);
-    setDomain("");
+    setDomain("suorganizacion.com");
     setTeamEmails({ it: "", maintenance: "", engineering: "", processes: "" });
     setModalOpen(false);
     onClose();
@@ -85,7 +85,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                 <span className="absolute left-3 top-2.5 text-slate-400">@</span>
                 <Input
                   id="domain"
-                  placeholder="polimetalruedas.com.ar"
+                  placeholder="suorganizacion.com" // <-- Placeholder genérico actualizado
                   className="pl-8 bg-slate-950 border-slate-800 text-white"
                   value={domain}
                   onChange={(e) => setDomain(e.target.value)}
