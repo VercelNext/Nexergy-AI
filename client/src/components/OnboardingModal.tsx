@@ -16,13 +16,15 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
   const [, setLocation] = useLocation();
   const [modalOpen, setModalOpen] = useState(isOpen);
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [domain, setDomain] = useState("suorganizacion.com");
-  const [companyName, setCompanyName] = useState("");
+
+  // Valores predeterminados para la prueba de flujo Nexergy
+  const [domain, setDomain] = useState("nexergy.ar");
+  const [companyName, setCompanyName] = useState("Nexergy");
   const [teamEmails, setTeamEmails] = useState({
-    it: "",
-    maintenance: "",
-    engineering: "",
-    processes: "",
+    it: "jj.lopez@nexergy.ar",
+    maintenance: "jj.lopez@nexergy.ar",
+    engineering: "jj.lopez@nexergy.ar",
+    processes: "jj.lopez@nexergy.ar",
   });
 
   useEffect(() => {
@@ -58,12 +60,12 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
   };
 
   const handleResetAndClose = () => {
-    const targetRoute = domain.includes("polimetal") ? "/polimetal" : `/${companyName.toLowerCase() || 'polimetal'}`;
     setStep(1);
     setModalOpen(false);
     onClose();
-    // Redireccionar al usuario al panel de la integración
-    setLocation(targetRoute);
+    
+    // Redirección segura a la vista configurada para evitar 404
+    setLocation("/polimetal");
   };
 
   return (
@@ -86,7 +88,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                 <span className="absolute left-3 top-2.5 text-slate-400">@</span>
                 <Input
                   id="domain"
-                  placeholder="suorganizacion.com"
+                  placeholder="nexergy.ar"
                   className="pl-8 bg-slate-950 border-slate-800 text-white"
                   value={domain}
                   onChange={(e) => setDomain(e.target.value)}
@@ -118,7 +120,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                   <Input
                     id="it"
                     type="email"
-                    placeholder={`sistemas@${domain}`}
+                    placeholder={`jj.lopez@${domain}`}
                     className="pl-9 bg-slate-950 border-slate-800 text-sm text-white"
                     value={teamEmails.it}
                     onChange={(e) => setTeamEmails({ ...teamEmails, it: e.target.value })}
@@ -133,7 +135,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                   <Input
                     id="maintenance"
                     type="email"
-                    placeholder={`mantenimiento@${domain}`}
+                    placeholder={`jj.lopez@${domain}`}
                     className="pl-9 bg-slate-950 border-slate-800 text-sm text-white"
                     value={teamEmails.maintenance}
                     onChange={(e) => setTeamEmails({ ...teamEmails, maintenance: e.target.value })}
@@ -148,7 +150,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                   <Input
                     id="engineering"
                     type="email"
-                    placeholder={`ingenieria@${domain}`}
+                    placeholder={`jj.lopez@${domain}`}
                     className="pl-9 bg-slate-950 border-slate-800 text-sm text-white"
                     value={teamEmails.engineering}
                     onChange={(e) => setTeamEmails({ ...teamEmails, engineering: e.target.value })}
@@ -163,7 +165,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                   <Input
                     id="processes"
                     type="email"
-                    placeholder={`procesos@${domain}`}
+                    placeholder={`jj.lopez@${domain}`}
                     className="pl-9 bg-slate-950 border-slate-800 text-sm text-white"
                     value={teamEmails.processes}
                     onChange={(e) => setTeamEmails({ ...teamEmails, processes: e.target.value })}
