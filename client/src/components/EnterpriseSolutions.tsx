@@ -4,11 +4,13 @@ import {
   Lightbulb,
   Zap,
   BarChart3,
+  ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 /* -----------------------------
-   TYPES
+   TYPES & PROPS
 ------------------------------*/
 
 interface SolutionCard {
@@ -18,6 +20,10 @@ interface SolutionCard {
   icon: LucideIcon;
   color: string;
   glowColor: string;
+}
+
+interface EnterpriseSolutionsProps {
+  onStartFree?: () => void;
 }
 
 /* -----------------------------
@@ -67,7 +73,7 @@ const solutions: SolutionCard[] = [
    COMPONENT
 ------------------------------*/
 
-export default function EnterpriseSolutions() {
+export default function EnterpriseSolutions({ onStartFree }: EnterpriseSolutionsProps) {
   const container = {
     hidden: { opacity: 0 },
     visible: {
@@ -96,7 +102,7 @@ export default function EnterpriseSolutions() {
     >
       <div className="max-w-6xl mx-auto">
 
-        {/* HEADER (aligned with Orchestrator narrative) */}
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -108,10 +114,19 @@ export default function EnterpriseSolutions() {
             Strategic Operational Capabilities
           </h2>
 
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto mb-8">
             We bridge operational analysis and strategic execution to enable a
             continuous transformation cycle powered by data and AI.
           </p>
+
+          {onStartFree && (
+            <Button
+              onClick={onStartFree}
+              className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-3 rounded-xl gap-2 transition-all shadow-lg shadow-cyan-500/20"
+            >
+              Start for Free <ArrowRight className="w-4 h-4" />
+            </Button>
+          )}
         </motion.div>
 
         {/* GRID */}
