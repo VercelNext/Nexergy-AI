@@ -13,6 +13,9 @@ export default function Navigation({ onOpenJoin }: NavigationProps) {
     e.preventDefault();
     if (onOpenJoin) {
       onOpenJoin();
+    } else {
+      // Dispara un evento global por si el componente no recibió la prop
+      window.dispatchEvent(new CustomEvent("open-onboarding-modal"));
     }
     setIsOpen(false);
   };
@@ -43,7 +46,7 @@ export default function Navigation({ onOpenJoin }: NavigationProps) {
               Governance
             </a>
 
-            {/* BOTÓN JOIN / START FOR FREE */}
+            {/* BOTÓN JOIN */}
             <Button
               onClick={handleJoinClick}
               className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-5 py-2 rounded-lg text-sm gap-2 transition-all shadow-md shadow-cyan-500/20"
