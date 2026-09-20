@@ -6,7 +6,7 @@ export function ContactButton({ className = "" }: { className?: string }) {
       href="mailto:contacto@nexergy.ar" 
       className={`bg-[#00BFFF] hover:bg-[#00BFFF]/90 text-[#0a0e27] font-bold py-2.5 px-6 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,191,255,0.4)] text-sm ${className}`}
     >
-      Enviar consulta
+      Contact Us
     </a>
   );
 }

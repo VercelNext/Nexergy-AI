@@ -4,6 +4,10 @@
 
 NEXERGY AI is an **AI-native operational intelligence platform** designed for enterprise-grade industrial automation, predictive analytics, and autonomous execution. The platform provides real-time operational context analysis, digital twin simulation, and intelligent orchestration across multiple industry sectors.
 
+The platform implements a multi-tenant corporate onboarding model where domain verification (e.g., `@polimetalruedas.com.ar`) governs tenant isolation and restricts system access exclusively to whitelisted corporate roles (IT, Maintenance, Engineering, and Processes).
+
+---
+
 ## Technology Stack
 
 | Layer | Technology | Purpose |
@@ -11,127 +15,124 @@ NEXERGY AI is an **AI-native operational intelligence platform** designed for en
 | **Frontend** | React 19, TypeScript, Tailwind CSS 4 | Interactive UI with real-time updates |
 | **Styling** | Framer Motion, Recharts | Animations and data visualization |
 | **Backend** | Express.js, tRPC 11 | Type-safe API layer |
-| **Database** | MySQL/TiDB, Drizzle ORM | Data persistence |
-| **Authentication** | Manus OAuth | User authentication & session management |
-| **AI Integration** | LLM API (Manus Built-in) | Real-time intelligence analysis |
-| **Build Tools** | Vite, TypeScript, Vitest | Development and testing |
+| **Database** | MySQL / TiDB, Drizzle ORM | Data persistence & schema management |
+| **Authentication** | Manus OAuth & Domain Auth Guard | User authentication & domain-restricted access |
+| **AI Integration** | LLM API (Manus Built-in) | Real-time intelligence & analyzer engine |
+| **Build Tools** | Vite, TypeScript, Vitest | Development, bundling, and testing |
+
+---
 
 ## Architecture Overview
 
-```
 ┌─────────────────────────────────────────────────────────────┐
-│                     NEXERGY AI Platform                      │
+│                   NEXERGY AI Platform                       │
 ├─────────────────────────────────────────────────────────────┤
-│                                                               │
+│                                                             │
 │  ┌──────────────────────────────────────────────────────┐   │
-│  │              Frontend (React + Tailwind)              │   │
+│  │              Frontend (React + Tailwind)             │   │
 │  │  ┌─────────────────────────────────────────────────┐ │   │
-│  │  │ Hero Section (Particles + CTAs)                 │ │   │
+│  │  │ Hero Section (Particles + Dynamic CTAs)         │ │   │
+│  │  │ Home Landing Page & Plan Selection ("Start Free") │   │
+│  │  │ Onboarding Wizard Modal (Domain & Roles)        │ │   │
 │  │  │ Operational Orchestrator (5-Step Flow)          │ │   │
-│  │  │ Operational Input (Sector + LLM)                │ │   │
-│  │  │ Dashboard (KPIs + Charts)                       │ │   │
-│  │  │ Intelligence Layers (5 Modules)                 │ │   │
-│  │  │ Trust & Governance (Compliance)                 │ │   │
-│  │  │ Platform Architecture (SVG Diagram)             │ │   │
-│  │  │ Navigation (Sticky + Scroll-Spy)                │ │   │
-│  │  │ Footer (Links + Status)                         │ │   │
+│  │  │ Operational Input (Sector + Streaming LLM)      │ │   │
+│  │  │ Operational Dashboard (KPIs, Charts, Analyzers) │ │   │
+│  │  │ Dedicated Tenant Portals (/polimetal,/niza,etc) │ │   │
+│  │  │ Intelligence Layers (5 AI Capabilities)         │ │   │
+│  │  │ Trust & Governance (ISO 42001, SOC 2, Audit)   │ │   │
+│  │  │ Navigation (Sticky Header + Scroll-Spy)         │ │   │
+│  │  │ Footer (Links, Status Indicators, Legal)        │ │   │
 │  │  └─────────────────────────────────────────────────┘ │   │
 │  └──────────────────────────────────────────────────────┘   │
-│                           ↕                                  │
+│                          ↕                                  │
 │  ┌──────────────────────────────────────────────────────┐   │
-│  │         tRPC Client (Type-Safe API)                  │   │
+│  │         tRPC Client (Type-Safe API Layer)            │   │
 │  └──────────────────────────────────────────────────────┘   │
-│                           ↕                                  │
+│                          ↕                                  │
 │  ┌──────────────────────────────────────────────────────┐   │
 │  │              Backend (Express + tRPC)                │   │
 │  │  ┌─────────────────────────────────────────────────┐ │   │
-│  │  │ Auth Router (OAuth, Logout)                     │ │   │
-│  │  │ AI Router (LLM Analysis)                        │ │   │
-│  │  │ System Router (Health, Notifications)           │ │   │
+│  │  │ Auth Router (OAuth, Domain Guard, Role Whitelist) │   │
+│  │  │ AI Router (LLM Analysis & Analyzer Engine)      │ │   │
+│  │  │ System Router (Health, Notifications, Logs)     │ │   │
 │  │  └─────────────────────────────────────────────────┘ │   │
 │  └──────────────────────────────────────────────────────┘   │
-│                           ↕                                  │
+│                          ↕                                  │
 │  ┌──────────────────────────────────────────────────────┐   │
-│  │    External Services & Data Layer                    │   │
+│  │         External Services & Data Layer               │   │
 │  │  ├─ Manus OAuth (Authentication)                     │   │
 │  │  ├─ LLM API (Intelligence Analysis)                  │   │
-│  │  ├─ MySQL Database (Persistence)                     │   │
-│  │  └─ Storage Service (Files & Assets)                 │   │
+│  │  ├─ MySQL / TiDB Database (Multi-Tenant Persistence) │   │
+│  │  └─ Storage & Connectors (Cloudflare D1/R2)          │   │
 │  └──────────────────────────────────────────────────────┘   │
-│                                                               │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
-```
+---
+
+## Multi-Tenant Onboarding & Domain Authorization Model
+
+NEXERGY AI provides an enterprise onboarding flow triggered from the main Landing Page when a user selects **"Start for Free"** or **"Join"**.
+
+### Onboarding Workflow
+1. **Domain Input:** The enterprise specifies its primary corporate domain (e.g., `polimetalruedas.com.ar`).
+2. **Access Restriction:** The system locks access to this tenant workspace so that **only users with emails ending in `@<domain>`** can register or log in.
+3. **Role Whitelisting (4 Core Fields):** The onboarding admin assigns 4 key engineering and management roles for their enterprise:
+   - **IT / Systems Leader:** (e.g., `sistemas@polimetalruedas.com.ar`)
+   - **Maintenance Leader:** (e.g., `mantenimiento@polimetalruedas.com.ar`)
+   - **Engineering Leader:** (e.g., `ingenieria@polimetalruedas.com.ar`)
+   - **Process Leader:** (e.g., `procesos@polimetalruedas.com.ar`)
+4. **Workspace Activation:** Upon completing the wizard, invitations are dispatched, and active users gain access to configure network analyzers, digital twin simulations, and operational reports.
+
+### Enterprise Dedicated Portals & Examples:
+
+| Enterprise Name | Corporate Domain | Portal Endpoint | Core Focus / Use Case |
+|-----------------|------------------|-----------------|------------------------|
+| **Polimetal Ruedas** | `@polimetalruedas.com.ar` | `/polimetal` | Alloy wheel foundry, thermal processing, and machine analyzer telemetry. |
+| **Niza** | `@niza.com.ar` | `/niza` | Industrial automation, energy efficiency vector analysis, and plant uptime tracking. |
+| **Aluar** | `@aluar.com.ar` | `/aluar` | Primary aluminum smelting, high-voltage energy orchestration, and predictive maintenance. |
+
+---
 
 ## Core Components
 
 ### 1. Hero Section (`Hero.tsx`)
-
 The hero section serves as the platform's entry point, featuring:
-
-- **Particle Background Animation**: Canvas-based particle system with neural network-style connections
-- **Dynamic Headline**: "NEXERGY AI" with "Operational Intelligence" subtitle
-- **Call-to-Action Buttons**: "Experience Orchestrator" and "View Dashboard"
-- **Scroll Indicator**: Animated chevron indicating more content below
-
-**Key Features:**
-- GPU-accelerated particle animations
-- Responsive design for mobile/tablet/desktop
-- Smooth scroll-to-section navigation
+- **Particle Background Animation:** Canvas-based particle system with neural network-style connections.
+- **Dynamic Headline:** "NEXERGY AI" with "Operational Intelligence" subtitle.
+- **Call-to-Action Buttons:** "Experience Orchestrator" and "View Dashboard".
+- **Scroll Indicator:** Animated chevron indicating more content below.
 
 ### 2. Operational Orchestrator (`OperationalOrchestrator.tsx`)
-
 Visualizes the 5-step operational intelligence flow:
+1. **Data Ingestion** - Collect operational context & analyzer inputs.
+2. **AI Analysis** - Process and understand industrial data.
+3. **Digital Twin** - Simulate plant scenarios and vector energy.
+4. **Risk & Efficiency** - Evaluate operational and economic risks.
+5. **Business Unit Execution** - Activate autonomous agents or manual protocols.
 
-1. **Data Ingestion** - Collect operational context
-2. **AI Analysis** - Process and understand data
-3. **Digital Twin** - Simulate scenarios
-4. **Risk & Efficiency** - Evaluate outcomes
-5. **Business Unit** - Activate intelligence
-
-**Implementation:**
-- SVG-based flow diagram with animated connections
-- Color-coded steps (Electric Blue → Neon Green → Purple → Cyan)
-- Step cards with descriptions and icons
-- Responsive grid layout
+**Implementation Details:**
+- SVG-based flow diagram with animated connections.
+- Color-coded steps (Electric Blue → Neon Green → Purple → Cyan).
+- Responsive grid layout.
 
 ### 3. Operational Input (`OperationalInput.tsx`)
-
 Real-time AI-powered intelligence analysis interface:
-
-- **Sector Selector**: Manufacturing, Energy, Logistics, Healthcare, Mining
-- **Context Textarea**: Free-form operational scenario input
-- **LLM Integration**: Real-time analysis via Manus LLM API
-- **Streaming Response**: Markdown-rendered analysis output
-
-**Analysis Output Includes:**
-- Operational Status Assessment
-- Key Intelligence Findings
-- Recommended Actions
-- Risk Indicators
+- **Sector Selector:** Manufacturing, Energy, Logistics, Healthcare, Mining.
+- **Context Textarea:** Free-form operational scenario input.
+- **LLM Integration:** Real-time analysis via Manus LLM API with streaming markdown output.
+- **Output Data:** Status assessment, key findings, recommended actions, and risk indicators.
 
 ### 4. Operational Dashboard (`OperationalDashboard.tsx`)
-
 Real-time metrics and analytics visualization:
+- **KPI Cards:** System Uptime (99.97%), Active Agents (247), Anomalies Detected (12), AI Recommendations (1847).
+- **Charts:** 24h Activity (Line Chart - Recharts), Business Unit Performance (Bar Chart - Recharts), Active Agents Status (Pie Chart - Recharts).
+- **Live Updates:** Simulated live metric updates at 3-second intervals with color-coded status indicators.
 
-**KPI Cards:**
-- System Uptime (99.97%)
-- Active Agents (247)
-- Anomalies Detected (12)
-- AI Recommendations (1847)
+### 5. Dedicated Integration Portals (`IntegrationsPolimetal.tsx`, `IntegrationsNiza.tsx`, etc.)
+- Enterprise-specific portals accessible only by authenticated users belonging to the validated domain.
+- Displays real-time analyzer readings, digital twin states, and collaborative dashboards for the **IT, Maintenance, Engineering, and Process** teams.
 
-**Charts:**
-- 24h Activity (Line Chart - Recharts)
-- Business Unit Performance (Bar Chart - Recharts)
-- Active Agents Status (Pie Chart - Recharts)
-
-**Features:**
-- Live metric updates (3-second intervals)
-- Color-coded status indicators
-- Responsive grid layout
-- Animated value transitions
-
-### 5. Intelligence Layers (`IntelligenceLayers.tsx`)
-
+### 6. Intelligence Layers (`IntelligenceLayers.tsx`)
 Five modular AI capability cards:
 
 | Module | Color | Metrics | Description |
@@ -142,70 +143,19 @@ Five modular AI capability cards:
 | **NEXERGY DIGITAL TWIN** | Cyan | Prediction, Scenarios, Simulation | Predictive modeling |
 | **NEXERGY LABS** | Magenta | Innovation, Research, Development | Governance & R&D |
 
-Each card displays live-simulated metrics (60-100% range) with hover animations and glow effects.
-
-### 6. Trust & Governance (`TrustGovernance.tsx`)
-
+### 7. Trust & Governance (`TrustGovernance.tsx`)
 Enterprise compliance and transparency framework:
-
-**Compliance Certifications:**
-- ISO 42001 AI Management System
-- SOC 2 Type II Certification
-- GDPR & Data Privacy Compliance
-- Industry-specific Regulations
-
-**Transparency & Accountability:**
-- Complete Audit Trails
-- Decision Explainability
-- Blockchain Verification
-- Real-time Monitoring
-
-**Real-time Status Indicators:**
-- Compliance Status (Active)
-- Audit Trail (Recording)
-- Blockchain Sync (Synced)
-- Security Level (Critical)
-
-### 7. Platform Architecture (`PlatformArchitecture.tsx`)
-
-Dynamic system architecture visualization:
-
-**Data Flow Pipeline:**
-```
-Data Flow → Intelligence → Automation → Compliance
-```
-
-**Four Pillars:**
-1. **Real-Time Intelligence** - Live metrics, instant analysis, active monitoring
-2. **Predictive Analytics** - Anomaly detection, risk forecasting, optimization
-3. **Autonomous Execution** - AI agents, auto-actions, orchestration
-4. **Enterprise Governance** - ISO 42001, audit trails, compliance
+- **Compliance Certifications:** ISO 42001 AI Management System, SOC 2 Type II, GDPR Compliance.
+- **Transparency & Accountability:** Complete Audit Trails, Decision Explainability, Blockchain Sync, Real-time Security Logging.
 
 ### 8. Navigation (`Navigation.tsx`)
-
 Sticky header with scroll-spy functionality:
-
-- **Logo**: "NEXERGY AI" branding
-- **Navigation Items**: Dashboard, Orchestrator, Analytics, About, Blog, Careers, Docs, API, Support
-- **Mobile Menu**: Collapsible hamburger menu
-- **Scroll Detection**: Header background appears on scroll
-- **Active Section Highlighting**: Current section highlighted in navigation
+- Logo branding, responsive mobile collapsible menu, active section highlighting, and background transition on scroll.
 
 ### 9. Footer (`Footer.tsx`)
+Comprehensive footer with status indicators (System Operational, Security Level, Performance), links categorized by Platform/Company/Resources, and legal pages.
 
-Comprehensive footer with links and status:
-
-**Link Categories:**
-- **Platform**: Dashboard, Orchestrator, Analytics
-- **Company**: About, Blog, Careers
-- **Resources**: Docs, API, Support
-
-**System Status Indicators:**
-- System Status (Operational)
-- Security (Secure)
-- Performance (Optimal)
-
-**Legal Links:** Privacy, Terms, Security
+---
 
 ## Design System
 
@@ -213,133 +163,53 @@ Comprehensive footer with links and status:
 
 | Color | Hex | Usage |
 |-------|-----|-------|
-| Electric Blue | #00BFFF | Primary accent, highlights |
-| Neon Green | #00FF7F | Success, energy metrics |
-| Deep Purple | #C800FF | Warnings, secondary accent |
-| Cyan | #00FFFF | Tertiary accent, tech elements |
-| Deep Black | #0a0e27 | Background |
-| Dark Navy | #0f1535 | Card backgrounds |
-| Gray | #999999 | Text secondary |
+| Electric Blue | `#00BFFF` | Primary accent, highlights |
+| Neon Green | `#00FF7F` | Success, energy metrics |
+| Deep Purple | `#C800FF` | Warnings, secondary accent |
+| Cyan | `#00FFFF` | Tertiary accent, tech elements |
+| Deep Black | `#0a0e27` | Main background |
+| Dark Navy | `#0f1535` | Card backgrounds |
+| Gray | `#999999` | Text secondary |
 
-### Typography
+### Typography & Animation
+- **Headings:** Bold, high contrast (white on dark background).
+- **Technical Text:** Monospace for code, domains (`@polimetalruedas.com.ar`), and metrics.
+- **Transitions:** 100-200ms interaction scale, 300-600ms entrance slide/fade using Framer Motion and GPU-accelerated CSS.
 
-- **Headings**: Bold, high contrast (white on dark)
-- **Body**: Regular weight, gray-400 for secondary text
-- **Technical**: Monospace for code/metrics
-- **Font**: System fonts (optimized for web)
+---
 
-### Animation Principles
-
-- **Entrance**: 300-600ms fade + slide
-- **Interactions**: 100-200ms scale/color transitions
-- **Micro-interactions**: 150-250ms hover effects
-- **Easing**: Cubic-bezier for smooth, natural motion
-- **GPU Acceleration**: Transform and opacity only
-
-## Data Flow
+## Data Flow & State Management
 
 ### Frontend State Management
-
-**React Hooks:**
-- `useState` for local component state
-- `useEffect` for side effects and animations
-- `useRef` for DOM/canvas references
-- `useMemo` for expensive computations
-
-**tRPC Integration:**
-- `trpc.ai.analyzeLLM.useMutation()` for LLM calls
-- `trpc.auth.me.useQuery()` for user authentication
-- `trpc.auth.logout.useMutation()` for logout
+- **React Hooks:** `useState`, `useEffect`, `useRef`, `useMemo`.
+- **tRPC Client Integration:**
+  - `trpc.ai.analyzeLLM.useMutation()` for AI context calls.
+  - `trpc.auth.me.useQuery()` for user and domain authentication checks.
+  - `trpc.auth.logout.useMutation()` for session termination.
 
 ### Backend Procedures
+- **Public Procedures:**
+  - `auth.me` - Retrieve current authenticated user and domain context.
+  - `auth.logout` - Destroy session.
+  - `ai.analyzeLLM` - Process operational inputs.
+- **Protected Procedures:**
+  - `system.notifyOwner` - Dispatch domain alerts and role notifications.
+  - `system.health` - Monitor system health status.
 
-**Public Procedures:**
-- `auth.me` - Get current user
-- `auth.logout` - Clear session
-- `ai.analyzeLLM` - Analyze operational context
+---
 
-**Protected Procedures:**
-- `system.notifyOwner` - Send notifications to owner
-- `system.health` - System health check
+## Security & Access Control Guardrails
 
-## Performance Optimizations
+1. **Strict Domain Matching:** Email addresses must explicitly match the registered domain (e.g., `*@polimetalruedas.com.ar`).
+2. **Role Authorization:** Access to key analyzer settings and result exports is restricted to designated IT, Maintenance, Engineering, and Process leads.
+3. **Session Security:** Manus OAuth integration with HTTPS/TLS-only cookies.
+4. **Audit Trail:** Complete logging for governance and compliance.
 
-1. **Canvas Rendering**: Particle background uses requestAnimationFrame for smooth 60fps
-2. **Chart Optimization**: Recharts with memoized data updates
-3. **Animation Optimization**: GPU-accelerated transforms (Framer Motion)
-4. **Code Splitting**: Lazy-loaded components with React.lazy
-5. **Bundle Size**: Tree-shaking and minification via Vite
-
-## Responsive Design
-
-| Breakpoint | Width | Layout |
-|------------|-------|--------|
-| Mobile | < 640px | Single column, stacked cards |
-| Tablet | 640px - 1024px | 2-3 column grid |
-| Desktop | > 1024px | Full 4-5 column grid |
-
-## Security Considerations
-
-1. **Authentication**: Manus OAuth with secure session cookies
-2. **API Security**: tRPC with type-safe procedures
-3. **Data Protection**: HTTPS-only communication
-4. **Environment Variables**: Secure credential management
-5. **CORS**: Configured for same-origin requests
-
-## Future Enhancements
-
-1. **Real-time WebSocket**: Live data streaming
-2. **Advanced Analytics**: Machine learning model integration
-3. **Custom Dashboards**: User-configurable layouts
-4. **Mobile App**: React Native implementation
-5. **API Documentation**: OpenAPI/Swagger integration
-6. **Advanced Compliance**: Additional certifications (SOX, HIPAA)
-7. **Multi-tenant Support**: Organization-level segregation
-8. **Advanced Reporting**: PDF export and scheduling
-
-## Development Workflow
-
-### Local Development
-
-```bash
-# Install dependencies
-pnpm install
-
-# Start dev server
-pnpm dev
-
-# Run tests
-pnpm test
-
-# Type checking
-pnpm check
-
-# Format code
-pnpm format
-```
-
-### Database Migrations
-
-```bash
-# Generate migration
-pnpm drizzle-kit generate
-
-# Apply migration
-pnpm drizzle-kit migrate
-```
-
-### Deployment
-
-The platform is deployed on Manus infrastructure with:
-- Automatic HTTPS
-- Global CDN
-- Auto-scaling
-- Built-in monitoring
-- One-click rollback
+---
 
 ## File Structure
 
-```
+
 nexergy-ai-platform/
 ├── client/
 │   ├── src/
@@ -356,33 +226,60 @@ nexergy-ai-platform/
 │   │   │   ├── ParticleBackground.tsx
 │   │   │   └── ui/ (shadcn/ui components)
 │   │   ├── pages/
-│   │   │   └── Home.tsx
-│   │   ├── App.tsx
+│   │   │   ├── Home.tsx                  # Global Landing + Onboarding Wizard Modal
+│   │   │   ├── IntegrationsPolimetal.tsx # Dedicated Portal (@polimetalruedas.com.ar)
+│   │   │   ├── IntegrationsNiza.tsx      # Dedicated Portal (@niza.com.ar)
+│   │   │   ├── IntegrationsAluar.tsx     # Dedicated Portal (@aluar.com.ar)
+│   │   │   └── NotFound.tsx
+│   │   ├── App.tsx                       # Router & Domain Route Configuration
 │   │   ├── main.tsx
 │   │   └── index.css
 │   ├── index.html
 │   └── public/
 ├── server/
-│   ├── routers.ts
-│   ├── db.ts
+│   ├── routers.ts                        # tRPC API Routers
+│   ├── db.ts                             # Database Connection & Drizzle setup
 │   ├── storage.ts
 │   └── _core/
 │       ├── context.ts
 │       ├── llm.ts
 │       ├── oauth.ts
-│       └── ...
+│       └── domainGuard.ts                # Domain & Role Verification Middleware
 ├── drizzle/
-│   ├── schema.ts
+│   ├── schema.ts                         # Multi-tenant DB Schema & Whitelists
 │   └── migrations/
 ├── shared/
 │   ├── const.ts
 │   └── types.ts
 ├── package.json
+├── PROJECT_ARCHITECTURE.md
 ├── tsconfig.json
 ├── vite.config.ts
 └── vitest.config.ts
-```
+---
 
-## Conclusion
+## Development Workflow
 
-NEXERGY AI Platform represents a modern, enterprise-grade operational intelligence system built with cutting-edge web technologies. The architecture emphasizes type safety, real-time responsiveness, and seamless user experience while maintaining security and scalability standards required for industrial applications.
+### Local Commands
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Run test suite
+pnpm test
+
+# Type checking
+pnpm check
+
+# Format codebase
+pnpm format
+
+# Generate migration schema
+pnpm drizzle-kit generate
+
+# Apply migrations
+pnpm drizzle-kit migrate
