@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { Mail, ArrowUpRight, ShieldCheck, Share2 } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -7,6 +7,7 @@ export default function Footer() {
   // Rutas locales relativas a la carpeta pública de tu servidor
   const PRIVACY_POLICY_URL = "/privacy.pdf";
   const TERMS_OF_SERVICE_URL = "/terms.pdf";
+  const LINKTREE_URL = "https://linktr.ee/nexergy.ar";
 
   return (
     <footer className="bg-black text-white border-t border-zinc-800 py-12 px-6">
@@ -49,13 +50,25 @@ export default function Footer() {
           <p className="text-sm text-zinc-400">
             Need specialized advice? Connect with our technical team:
           </p>
-          <a 
-            href="mailto:contacto@nexergy.ar" 
-            className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors font-medium text-sm border border-zinc-800 rounded-full px-4 py-2 bg-zinc-950 hover:bg-zinc-900"
-          >
-            <Mail className="w-4 h-4" />
-            contacto@nexergy.ar
-          </a>
+          <div className="flex flex-col sm:flex-row items-start gap-3">
+            <a 
+              href="mailto:contacto@nexergy.ar" 
+              className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors font-medium text-sm border border-zinc-800 rounded-full px-4 py-2 bg-zinc-950 hover:bg-zinc-900"
+            >
+              <Mail className="w-4 h-4" />
+              contacto@nexergy.ar
+            </a>
+            <a 
+              href={LINKTREE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors font-medium text-sm border border-zinc-800 rounded-full px-4 py-2 bg-zinc-950 hover:bg-zinc-900"
+            >
+              <Share2 className="w-4 h-4 text-cyan-400" />
+              Linktree
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
+          </div>
         </div>
 
       </div>
