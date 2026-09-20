@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Building2, Mail, ArrowRight, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
+import { useLocation } from "wouter";
 
 interface OnboardingModalProps {
   isOpen: boolean;
@@ -12,9 +13,10 @@ interface OnboardingModalProps {
 }
 
 export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
+  const [, setLocation] = useLocation();
   const [modalOpen, setModalOpen] = useState(isOpen);
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [domain, setDomain] = useState("suorganizacion.com"); // <-- Cambiado de por defecto
+  const [domain, setDomain] = useState("suorganizacion.com");
   const [companyName, setCompanyName] = useState("");
   const [teamEmails, setTeamEmails] = useState({
     it: "",
@@ -23,12 +25,10 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
     processes: "",
   });
 
-  // Sincronizar prop externa con estado interno
   useEffect(() => {
     setModalOpen(isOpen);
   }, [isOpen]);
 
-  // Escuchar el evento global desde Navigation u otros botones
   useEffect(() => {
     const handleGlobalOpen = () => setModalOpen(true);
     window.addEventListener("open-onboarding-modal", handleGlobalOpen);
@@ -58,11 +58,12 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
   };
 
   const handleResetAndClose = () => {
+    const targetRoute = domain.includes("polimetal") ? "/polimetal" : `/${companyName.toLowerCase() || 'polimetal'}`;
     setStep(1);
-    setDomain("suorganizacion.com");
-    setTeamEmails({ it: "", maintenance: "", engineering: "", processes: "" });
     setModalOpen(false);
     onClose();
+    // Redireccionar al usuario al panel de la integración
+    setLocation(targetRoute);
   };
 
   return (
@@ -85,7 +86,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                 <span className="absolute left-3 top-2.5 text-slate-400">@</span>
                 <Input
                   id="domain"
-                  placeholder="suorganizacion.com" // <-- Placeholder genérico actualizado
+                  placeholder="suorganizacion.com"
                   className="pl-8 bg-slate-950 border-slate-800 text-white"
                   value={domain}
                   onChange={(e) => setDomain(e.target.value)}
@@ -187,10 +188,10 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
             <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
             <h3 className="text-lg font-bold">¡Dominio y Roles Habilitados!</h3>
             <p className="text-sm text-slate-400">
-              Las cuentas del equipo <strong>@{domain}</strong> han quedado registradas para acceder al panel de su empresa.
+              Las cuentas del equipo <strong className="text-cyan-400">@{domain}</strong> han quedado registradas para acceder al panel de su empresa.
             </p>
-            <Button onClick={handleResetAndClose} className="w-full mt-2 bg-slate-800 hover:bg-slate-700 text-white">
-              Cerrar y Volver
+            <Button onClick={handleResetAndClose} className="w-full mt-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">
+              Ir al Panel de la Organización
             </Button>
           </div>
         )}
