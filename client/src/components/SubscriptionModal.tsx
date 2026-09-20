@@ -5,9 +5,14 @@ import { X, Check, ArrowRight, CreditCard, Shield, MessageSquare, ShieldCheck } 
 interface SubscriptionModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSelectStartForFree: () => void; // <-- Callback para abrir OnboardingModal
 }
 
-export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, onClose }) => {
+export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ 
+  isOpen, 
+  onClose, 
+  onSelectStartForFree 
+}) => {
   const plans = [
     {
       name: 'Starter Free',
@@ -24,7 +29,8 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
       isStripe: false,
       popular: false,
       action: () => {
-        window.location.href = '/register'; 
+        onClose(); // Cierra este modal de suscripción
+        onSelectStartForFree(); // Abre el modal de onboarding
       }
     },
     {
@@ -174,7 +180,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ isOpen, on
               })}
             </div>
 
-            {/* Replicated Footer Notice & Consent Links (Círculo Rojo) */}
+            {/* Footer Notice & Consent Links */}
             <div className="p-5 border-t border-slate-800 bg-slate-900/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
               <div className="flex items-center gap-1.5 bg-slate-950 px-2 py-0.5 border border-slate-800 rounded text-slate-400">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
